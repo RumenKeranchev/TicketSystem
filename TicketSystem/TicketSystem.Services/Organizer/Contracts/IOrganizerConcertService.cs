@@ -6,8 +6,12 @@ namespace TicketSystem.Services.Organizer.Contracts
 {
     public interface IOrganizerConcertService
     {
-        Task< IEnumerable< ListAllConcertsServiceModel > > All();
+        Task< IEnumerable< ListAllConcertsServiceModel > > AllAsync();
 
-        Task< bool > Create( CreateConcertServiceModel concertModel );
+        Task< bool > CreateAsync( CreateConcertServiceModel concertModel );
+
+        Task< EditConcertServiceModel > GetForEditAsync( int id );
+
+        Task< bool > EditAsync( int id, EditConcertServiceModel editModel );
     }
 }

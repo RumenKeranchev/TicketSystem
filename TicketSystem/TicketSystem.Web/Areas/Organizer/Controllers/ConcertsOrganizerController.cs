@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using TicketSystem.Services.Organizer.Contracts;
 using TicketSystem.Services.Organizer.Models;
 
@@ -19,7 +16,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
 
         public async Task< IActionResult > Index()
         {
-            var concerts = await this.concertService.All();
+            var concerts = await this.concertService.AllAsync();
 
             return this.View( concerts );
         }
@@ -32,12 +29,47 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
         [ HttpPost ]
         public async Task< IActionResult > Create( CreateConcertServiceModel concertModel )
         {
+            if ( concertModel.StartDate > concertModel.EndDate )
+            {
+                this.ModelState.AddModelError( "", "Start Date is after End Date!" );
+            }
+
             if ( !this.ModelState.IsValid )
             {
                 return this.View( concertModel );
             }
 
-            var success = await this.concertService.Create( concertModel );
+            var success = await this.concertService.CreateAsync( concertModel );
+
+            if ( !success )
+            {
+                return this.BadRequest();
+            }
+
+            return this.RedirectToAction( nameof( this.Index ) );
+        }
+
+        public async Task< IActionResult > Edit( int id )
+        {
+            var concert = await this.concertService.GetForEditAsync( id );
+
+            return this.View( concert );
+        }
+
+        [ HttpPost ]
+        public async Task< IActionResult > Edit( int id, EditConcertServiceModel editConcert )
+        {
+            if ( editConcert.StartDate > editConcert.EndDate )
+            {
+                this.ModelState.AddModelError( "", "Start Date is after End Date!" );
+            }
+
+            if ( !this.ModelState.IsValid )
+            {
+                return this.View( editConcert );
+            }
+
+            var success = await this.concertService.EditAsync( id, editConcert );
 
             if ( !success )
             {

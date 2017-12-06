@@ -28,7 +28,8 @@
             <td>@concert.City</td>
             <td>@concert.NumberOfBandsPlaying</td>
             <td>
-                <a class="btn btn-sm btn-warning Sharp">Edit</a>
+                <a class="btn btn-sm btn-info Sharp" >Add Band</a>
+                <a asp-area="Organizer" asp-controller="ConcertsOrganizer" asp-action="Edit" asp-route-id="@concert.Id" class="btn btn-sm btn-warning Sharp">Edit</a>
                 <a class=" btn btn-sm btn-danger Sharp">Delete</a>
             </td>
         </tr>

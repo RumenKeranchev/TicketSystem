@@ -20,7 +20,7 @@ namespace TicketSystem.Services.Organizer.Implementations
             this.db = db;
         }
 
-        public async Task< IEnumerable< ListAllConcertsServiceModel > > All()
+        public async Task< IEnumerable< ListAllConcertsServiceModel > > AllAsync()
         {
             var concerts = await this.db.Concerts
                 .ProjectTo< ListAllConcertsServiceModel >()
@@ -29,7 +29,7 @@ namespace TicketSystem.Services.Organizer.Implementations
             return concerts;
         }
 
-        public async Task< bool > Create( CreateConcertServiceModel concertModel )
+        public async Task< bool > CreateAsync( CreateConcertServiceModel concertModel )
         {
             if ( concertModel == null )
             {
@@ -49,6 +49,43 @@ namespace TicketSystem.Services.Organizer.Implementations
             };
 
             this.db.Concerts.Add( concert );
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task< EditConcertServiceModel > GetForEditAsync( int id )
+        {
+            var concert = await this.db
+                .Concerts
+                .Where( c => c.Id == id )
+                .ProjectTo< EditConcertServiceModel >()
+                .FirstOrDefaultAsync();
+
+            return concert;
+        }
+
+        public async Task< bool > EditAsync( int id, EditConcertServiceModel editModel )
+        {
+            if ( editModel == null )
+            {
+                return false;
+            }
+
+            var concert = await this.db
+                .Concerts
+                .FirstOrDefaultAsync( c => c.Id == id );
+
+            if ( concert == null )
+            {
+                return false;
+            }
+
+            concert.StartDate = editModel.StartDate;
+            concert.EndDate = editModel.EndDate;
+            concert.MaxNumberOfTickets = editModel.MaxNumberOfTickets;
+
+            this.db.Update( concert );
             await this.db.SaveChangesAsync();
 
             return true;
