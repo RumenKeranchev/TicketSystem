@@ -1,0 +1,135 @@
+﻿@using TicketSystem.Web.Areas.Admin.Models.SongsViewModels
+@model  TicketSystem.Web.Areas.Admin.Models.SongsViewModels.IndexViewModel 
+
+@{
+    this.ViewBag.Title = "All Songs";
+    this.Layout = "_Layout";
+}
+<script>
+    document.getElementById("body").className += " AllSongsAdmin FormatImage";
+</script>
+
+<h1>@( this.ViewData[ "Title" ] )</h1>
+
+@if ( this.Model.TotalSongs > this.Model.Songs.Count() )
+{
+    <ul class="pagination">
+        <li class="@( this.Model.CurrentPage == 1 ? "disabled" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index" asp-route-page="@this.Model.PreviousPage" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="@( this.Model.CurrentPage == 1 ? "active" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index"
+               asp-route-page="@this.Model.PreviousPage">
+                @this.Model.PreviousPage</a>
+        </li>
+        <li class="@( this.Model.CurrentPage >= 2 ? "active" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index"
+               asp-route-page="@( this.Model.CurrentPage == 1 ? 2 : this.Model.CurrentPage )">
+                @( this.Model.CurrentPage == 1 ? 2 : this.Model.CurrentPage )
+            </a>
+        </li>
+
+        @if ( this.Model.CurrentPage != this.Model.TotalPages )
+        {
+            if ( this.Model.CurrentPage != this.Model.TotalPages - 1 )
+            {
+                <li>
+                    <a>...</a>
+                </li>
+            }
+            <li>
+                <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index"
+                   asp-route-page="@this.Model.TotalPages">
+                    @this.Model.TotalPages
+                </a>
+            </li>
+        }
+
+
+        <li class="@( this.Model.CurrentPage == this.Model.TotalPages ? "disabled" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index" asp-route-page="@this.Model.NextPage" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+}
+<table class="table AllSongsAdminTable">
+    <thead style="background: black">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Play</th>
+        <th>Band</th>
+        <th>Album</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach ( var song in this.Model.Songs )
+    {
+        <tr>
+            <td style="background: black">@song.Id</td>
+            <td>@song.Name</td>
+            <td>@song.Genre</td>
+            <td>
+                <iframe width="150" height="50" src="https://www.youtube.com/embed/@song.UrlId" frameborder="0" allowfullscreen></iframe>
+            </td>
+            <td>@song.Band</td>
+            <td>@song.Album</td>
+            <td>
+                <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Edit" class="btn btn-warning Sharp" asp-route-id="@song.Id">Edit</a>
+                <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Delete" class="btn btn-danger Sharp" asp-route-id="@song.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@if ( this.Model.TotalSongs > this.Model.Songs.Count() )
+{
+    <ul class="pagination">
+        <li class="@( this.Model.CurrentPage == 1 ? "disabled" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index" asp-route-page="@this.Model.PreviousPage" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="@( this.Model.CurrentPage == 1 ? "active" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index"
+               asp-route-page="@this.Model.PreviousPage">
+                @this.Model.PreviousPage</a>
+        </li>
+        <li class="@( this.Model.CurrentPage >= 2 ? "active" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index"
+               asp-route-page="@( this.Model.CurrentPage == 1 ? 2 : this.Model.CurrentPage )">
+                @( this.Model.CurrentPage == 1 ? 2 : this.Model.CurrentPage )
+            </a>
+        </li>
+
+        @if ( this.Model.CurrentPage != this.Model.TotalPages )
+        {
+            if ( this.Model.CurrentPage != this.Model.TotalPages - 1 )
+            {
+                <li>
+                    <a>...</a>
+                </li>
+            }
+            <li>
+                <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index"
+                   asp-route-page="@this.Model.TotalPages">
+                    @this.Model.TotalPages
+                </a>
+            </li>
+        }
+
+
+        <li class="@( this.Model.CurrentPage == this.Model.TotalPages ? "disabled" : String.Empty )">
+            <a asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index" asp-route-page="@this.Model.NextPage" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+}

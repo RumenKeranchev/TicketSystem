@@ -1,0 +1,50 @@
+﻿@model  UsersListingViewModel 
+
+@{
+    ViewBag.Title = "All Users";
+    Layout = "_Layout";
+}
+
+<script>
+    document.getElementById("body").className += "FormatImage ManageUsersAdmin "
+</script>
+
+<h2 style="text-shadow: 4px 4px 8px black">@this.ViewData[ "Title" ]</h2>
+
+<table class="table table-hover AllSongsAdminTable">
+    <thead>
+    <tr>
+        <th>UserName</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach ( var user in this.Model.Users )
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@user.Name</td>
+            <td>@user.Email</td>
+            <td>
+                <form asp-controller="UsersAdmin" asp-action="AddToRole" method="post">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="hidden" name="UserId" value="@user.Id"/>
+                            <select name="Role" asp-items="this.Model.Roles" class="form-control Sharp"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="btn btn-sm btn-success Sharp" type="submit" value="Add To Role"/>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    @await Html.PartialAsync( "_ValidationScriptsPartial" )
+}
