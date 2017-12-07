@@ -1,0 +1,35 @@
+﻿@model  EditConcertServiceModel 
+
+@{
+    ViewBag.Title = $"Edit Concert - {this.Model.Name}";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center">@this.ViewData["Title"]</h2>
+
+
+<div class="row ">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="StartDate"></label>
+                <input asp-for="StartDate" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate"></label>
+                <input asp-for="EndDate" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxNumberOfTickets"></label>
+                <input asp-for="MaxNumberOfTickets" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
+                <span asp-validation-for="MaxNumberOfTickets" class="text-danger"></span>
+            </div>
+            <input type="submit" class="btn  btn-custom" value="Edit Concert"/>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
