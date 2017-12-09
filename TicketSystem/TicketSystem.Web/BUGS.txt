@@ -1,7 +1,7 @@
 Missing functionality:
-			3. Organizer & Admin create concerts and tickets
+			3. Tickets
 			4. Organizer creates downloadable tickets
 			5. Home index for normal users
-			6.Users can view & search bands, their albums and songs
-			7.Users can view and book tickets for concerts
-			8.Facebook & Google auth
+			6. Users can view & search bands, their albums and songs
+			7. Users can view and book tickets for concerts
+			8. Facebook & Google auth

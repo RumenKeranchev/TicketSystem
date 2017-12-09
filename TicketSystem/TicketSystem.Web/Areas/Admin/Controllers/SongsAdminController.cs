@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using TicketSystem.Services.Admin.Contracts;
 using TicketSystem.Web.Areas.Admin.Models.AlbumsViewModels;
 using TicketSystem.Web.Areas.Admin.Models.SongsViewModels;
@@ -19,6 +21,7 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
         {
             var songs = await this.songService.AllAsync( page );
             var nuberOfSongs = await this.songService.TotalAsync();
+
             return this.View( new IndexViewModel
             {
                 Songs = songs,

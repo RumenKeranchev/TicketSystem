@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using TicketSystem.Data.Models;
 using TicketSystem.Services.Admin.Contracts;

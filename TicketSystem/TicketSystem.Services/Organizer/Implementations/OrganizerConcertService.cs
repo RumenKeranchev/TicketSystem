@@ -1,9 +1,8 @@
-﻿using System;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
 using TicketSystem.Data;
 using TicketSystem.Data.Models;
 using TicketSystem.Services.Organizer.Contracts;
@@ -45,7 +44,8 @@ namespace TicketSystem.Services.Organizer.Implementations
                 Genre = ( Genre ) concertModel.Genre.Cast< int >().Sum(),
                 Location = concertModel.Location,
                 MaxNumberOfTickets = concertModel.MaxNumberOfTickets,
-                StartDate = concertModel.StartDate
+                StartDate = concertModel.StartDate,
+                Bands = this.ConverBands( concertModel.Bands )
             };
 
             this.db.Concerts.Add( concert );
@@ -89,6 +89,33 @@ namespace TicketSystem.Services.Organizer.Implementations
             await this.db.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task< List< GetBandsServiceModel > > BandsAsync()
+        {
+            var bands = await this.db
+                .Bands
+                .ProjectTo< GetBandsServiceModel >()
+                .ToListAsync();
+
+            return bands;
+        }
+
+        private List< BandConcert > ConverBands( IEnumerable< int > bands )
+        {
+            var result = new List< BandConcert >();
+
+            if ( bands.Any() )
+            {
+                foreach ( var band in bands )
+                {
+                    var bandToAdd = this.db.Bands.FirstOrDefault( b => b.Id == band );
+
+                    result.Add( new BandConcert { BandId = bandToAdd.Id, Band = bandToAdd } );
+                }
+            }
+
+            return result;
         }
     }
 }

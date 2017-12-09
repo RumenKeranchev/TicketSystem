@@ -1,4 +1,4 @@
-﻿@model  CreateSongViewModel 
+﻿@model CreateSongViewModel 
 
 @{
     ViewBag.Title = "Create Song";
@@ -49,6 +49,7 @@
                         </optgroup>
                     }
                 </select>
+                <span asp-validation-for="@this.Model.Song.AlbumId" class="text-danger"></span>
             </div>
             <input type="submit" class="btn  btn-custom Sharp" value="Create Song"/>
         </form>

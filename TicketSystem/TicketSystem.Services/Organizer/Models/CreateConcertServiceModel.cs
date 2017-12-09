@@ -40,8 +40,11 @@ namespace TicketSystem.Services.Organizer.Models
         public string City { get; set; }
 
         [ Required ]
-        [Display(Name = "Max Number of Tickets")]
+        [ Display( Name = "Max Number of Tickets" ) ]
         [ Range( 0, int.MaxValue ) ]
         public int MaxNumberOfTickets { get; set; }
+
+        [ Required ]
+        public List< int > Bands { get; set; }
     }
 }

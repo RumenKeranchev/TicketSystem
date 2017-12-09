@@ -1,4 +1,4 @@
-﻿@model CreateConcertServiceModel 
+﻿@model CreateConcertViewModel 
 
 @{
     ViewBag.Title = "Create Concert";
@@ -16,56 +16,67 @@
     <div class="col-md-6">
         <form method="post">
             <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="@this.Model.ConcertServiceModel.Name"></label>
+                <input asp-for="@this.Model.ConcertServiceModel.Name" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genre"></label> (Hold Ctrl to select multiple)
-                <select asp-for="Genre" class="form-control Sharp" multiple="multiple">
+                <label asp-for="@this.Model.ConcertServiceModel.Genre"></label> (Hold Ctrl to select multiple)
+                <select asp-for="@this.Model.ConcertServiceModel.Genre" class="form-control Sharp" multiple="multiple" style="height: 135px">
                     <option selected disabled>Select Genre...</option>
                     @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast< Genre >() )
                     {
                         <option value="@( ( int ) enumValue )">@enumValue</option>
                     }
                 </select>
-                <span asp-validation-for="Genre" class="text-danger"></span>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.Genre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Country"></label>
-                <input asp-for="Country" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                <span asp-validation-for="Country" class="text-danger"></span>
+                <label asp-for="@this.Model.ConcertServiceModel.Country"></label>
+                <input asp-for="@this.Model.ConcertServiceModel.Country" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.Country" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="City"></label>
-                <input asp-for="City" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                <span asp-validation-for="City" class="text-danger"></span>
+                <label asp-for="@this.Model.ConcertServiceModel.City"></label>
+                <input asp-for="@this.Model.ConcertServiceModel.City" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Location"></label>
-                <input asp-for="Location" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <label asp-for="@this.Model.ConcertServiceModel.Location"></label>
+                <input asp-for="@this.Model.ConcertServiceModel.Location" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.Location" class="text-danger"></span>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="StartDate"></label>
-                        <input asp-for="StartDate" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                        <label asp-for="@this.Model.ConcertServiceModel.StartDate"></label>
+                        <input asp-for="@this.Model.ConcertServiceModel.StartDate" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                        <span asp-validation-for="@this.Model.ConcertServiceModel.StartDate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="EndDate"></label>
-                        <input asp-for="EndDate" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                        <label asp-for="@this.Model.ConcertServiceModel.EndDate"></label>
+                        <input asp-for="@this.Model.ConcertServiceModel.EndDate" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                        <span asp-validation-for="@this.Model.ConcertServiceModel.EndDate" class="text-danger"></span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="MaxNumberOfTickets"></label>
-                <input asp-for="MaxNumberOfTickets" class="form-control Sharp" placeholder="Maximum Number of Tickets..."/>
-                <span asp-validation-for="MaxNumberOfTickets" class="text-danger"></span>
+                <label asp-for="@this.Model.ConcertServiceModel.MaxNumberOfTickets"></label>
+                <input asp-for="@this.Model.ConcertServiceModel.MaxNumberOfTickets" class="form-control Sharp" placeholder="Maximum Number of Tickets..."/>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.MaxNumberOfTickets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@this.Model.ConcertServiceModel.Bands"></label>
+                <select asp-for="@this.Model.ConcertServiceModel.Bands" class="form-control Sharp" style="height: 300px">
+                    <option selected disabled>Select Bands...</option>
+                    @foreach ( var band in this.Model.Bands )
+                    {
+                        <option value="@band.Id">@band.Name - @band.Genre</option>
+                    }
+                </select>
+                <span asp-validation-for="@this.Model.ConcertServiceModel.Bands" class="text-danger"></span>
             </div>
             <input type="submit" value="Create Concert" class="btn btn-custom Sharp"/>
         </form>

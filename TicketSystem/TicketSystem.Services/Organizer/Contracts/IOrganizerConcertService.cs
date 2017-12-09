@@ -13,5 +13,7 @@ namespace TicketSystem.Services.Organizer.Contracts
         Task< EditConcertServiceModel > GetForEditAsync( int id );
 
         Task< bool > EditAsync( int id, EditConcertServiceModel editModel );
+
+        Task< List< GetBandsServiceModel > > BandsAsync();
     }
 }
