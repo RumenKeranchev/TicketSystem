@@ -211,6 +211,8 @@ namespace TicketSystem.Data.Migrations
 
                     b.Property<DateTime>("StartDate");
 
+                    b.Property<int>("TicketsSold");
+
                     b.HasKey("Id");
 
                     b.ToTable("Concerts");
@@ -248,6 +250,8 @@ namespace TicketSystem.Data.Migrations
                     b.Property<int>("ConcertId");
 
                     b.Property<int>("Count");
+
+                    b.Property<bool>("IsPaid");
 
                     b.Property<decimal>("Price");
 

@@ -42,6 +42,8 @@ namespace TicketSystem.Data.Models
         [ Range( 0, int.MaxValue ) ]
         public int MaxNumberOfTickets { get; set; }
 
+        public int TicketsSold { get; set; }
+
         public List< Ticket > Tickets { get; set; } = new List< Ticket >();
 
         public List< BandConcert > Bands { get; set; } = new List< BandConcert >();

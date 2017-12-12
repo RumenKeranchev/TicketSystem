@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
         <link rel="stylesheet" href="~/css/site.css"/>
         <link type="text/css" href="~/css/AdminLayout.css" rel="stylesheet"/>
+        <link type="text/css" href="~/css/NormalUsers.css" rel="stylesheet"/>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -80,7 +81,10 @@
                     @if ( this.User.IsInRole( WebConstants.AdminRole ) || this.User.IsInRole( WebConstants.OrganizerRole ) )
                     {
                         <li>
-                            <a asp-area="Organizer" asp-controller="ConcertsOrganizer" asp-action="Create">Create Concert</a>
+                            <a asp-area="Organizer" asp-controller="Organizer" asp-action="Create">Create Concert</a>
+                        </li>
+                    <li>
+                            <a asp-area="Organizer" asp-controller="Organizer" asp-action="Index">All Concerts</a>
                         </li>
                     }
                 </ul>

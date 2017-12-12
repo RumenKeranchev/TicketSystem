@@ -42,10 +42,13 @@
     background-attachment: fixed;
 }
 
-.MetalFont {
-    font-family: Copperplate, Copperplate Gothic Light, sans-serif !important;
-}
+.MetalFont { font-family: Copperplate, Copperplate Gothic Light, sans-serif !important; }
 
-.Sharp {
-    border-radius: 0;
+.Sharp { border-radius: 0; }
+
+.OrganizerCreateConcert {
+    background-image: url("../images/Organizer/Concerts/createConcertOrganizer.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }

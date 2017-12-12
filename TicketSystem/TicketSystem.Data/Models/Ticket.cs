@@ -22,5 +22,7 @@ namespace TicketSystem.Data.Models
         public int ConcertId { get; set; }
 
         public Concert Concert { get; set; }
+
+        public bool IsPaid { get; set; }
     }
 }
