@@ -1,10 +1,23 @@
-﻿@{
+﻿@model IEnumerable< ListPreviousConcertsServiceModel > 
+
+@{
     ViewData[ "Title" ] = "Home Page";
 }
-
+<style>
+    #container {
+        background: rgba(0, 0, 0, 0.8);
+    }
+</style>
 <script>
     document.getElementById("body").className += " nu-index";
 </script>
+
+<div class="row" style="margin-top: 20px">
+    <center>
+        <img src="images/Logo.png" style="width: 600px; height: 150px;margin-bottom: 20px"/>
+    </center>
+</div>
+
 
 <h2 class="text-center">
     Upcoming Concerts
@@ -23,7 +36,7 @@
             </center>
             <div class="carousel-caption" role="option">
                 <p>
-                    <a class="btn btn-custom" href="/">
+                    <a class="btn btn-normal Sharp" asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="3">
                         Learn More
                     </a>
                 </p>
@@ -35,7 +48,7 @@
             </center>
             <div class="carousel-caption" role="option">
                 <p>
-                    <a class="btn btn-custom" href="/">
+                    <a class="btn btn-normal Sharp" asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="2">
                         Learn More
                     </a>
                 </p>
@@ -47,7 +60,7 @@
             </center>
             <div class="carousel-caption" role="option">
                 <p>
-                    <a class="btn btn-custom" href="/">
+                    <a class="btn btn-normal Sharp" asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="4">
                         Learn More
                     </a>
                 </p>
@@ -66,5 +79,5 @@
 
 <div class="row" style="margin-top: 30px">
     <h2>Previous Concerts</h2>
-@*    @await this.Html.PartialAsync( "_ListPreviousConcertsPartial",  )*@
+    @await this.Html.PartialAsync( "_ListPreviousConcertsPartial", this.Model )
 </div>

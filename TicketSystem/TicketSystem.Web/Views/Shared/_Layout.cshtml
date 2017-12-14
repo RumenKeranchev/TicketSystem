@@ -42,7 +42,7 @@
     }
 
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="background: black">
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background: black;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -53,8 +53,8 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Ticket System</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+            <div class="navbar-collapse collapse" >
+                <ul class="nav navbar-nav" style="color: goldenrod">
                     @if ( this.User.IsInRole( WebConstants.AdminRole ) )
                     {
                         <li class="dropdown">
@@ -83,7 +83,7 @@
                         <li>
                             <a asp-area="Organizer" asp-controller="Organizer" asp-action="Create">Create Concert</a>
                         </li>
-                    <li>
+                        <li>
                             <a asp-area="Organizer" asp-controller="Organizer" asp-action="Index">All Concerts</a>
                         </li>
                     }
@@ -92,7 +92,7 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content " id="container">
         @RenderBody()
         <hr/>
         <footer>
