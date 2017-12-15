@@ -42,7 +42,11 @@ namespace TicketSystem.Data.Models
         [ Range( 0, int.MaxValue ) ]
         public int MaxNumberOfTickets { get; set; }
 
+        public string PosterUrl { get; set; }
+
         public int TicketsSold { get; set; }
+
+        public string StreamUrl { get; set; }
 
         public List< Ticket > Tickets { get; set; } = new List< Ticket >();
 

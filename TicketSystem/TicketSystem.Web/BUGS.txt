@@ -1,6 +1,11 @@
 Missing functionality:
-			5. Home index for normal users
 			6. Users can view & search bands, their albums and songs
 			7. Users can view and book tickets for concerts
 			8. Facebook & Google auth
 			9. Unit Tests
+
+
+Finish things:
+			1. Links for bands at Details.cshtml Concerts
+			2. Apply styles corresponding to genres
+			3. Index bands albums hover

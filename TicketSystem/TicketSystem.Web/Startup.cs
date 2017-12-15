@@ -40,6 +40,8 @@ namespace TicketSystem.Web
 
             services.AddTransient< IEmailSender, EmailSender >();
 
+            services.AddMemoryCache();
+
             services.AddDomainServices();
 
             services.AddRouting( opt => opt.LowercaseUrls = true );

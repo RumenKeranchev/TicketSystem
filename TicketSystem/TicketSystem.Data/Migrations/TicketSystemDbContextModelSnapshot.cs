@@ -209,6 +209,10 @@ namespace TicketSystem.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<string>("PosterUrl");
+
+                    b.Property<string>("SreamUrl");
+
                     b.Property<DateTime>("StartDate");
 
                     b.Property<int>("TicketsSold");

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using TicketSystem.Common.Contstants;
 using TicketSystem.Services.Admin.Contracts;
+using TicketSystem.Services.Admin.Models.SongsServiceModels;
 using TicketSystem.Web.Areas.Admin.Models.AlbumsViewModels;
 using TicketSystem.Web.Areas.Admin.Models.SongsViewModels;
 
@@ -11,21 +14,40 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
     public class SongsAdminController : BaseAdminController
     {
         private readonly IAdminSongService songService;
+        private readonly IMemoryCache cache;
 
-        public SongsAdminController( IAdminSongService songService )
+        public SongsAdminController( IAdminSongService songService, IMemoryCache cache )
         {
             this.songService = songService;
+            this.cache = cache;
         }
 
         public async Task< IActionResult > Index( int page = 1 )
         {
-            var songs = await this.songService.AllAsync( page );
-            var nuberOfSongs = await this.songService.TotalAsync();
+            var cacheSongs =
+                this.cache.Get< IEnumerable< SongListingServiceModel > >( CacheConstants.ListAllSongsAdmin );
+
+            if ( cacheSongs == null )
+            {
+                cacheSongs = await this.songService.AllAsync( page );
+                this.cache.Set( CacheConstants.ListAllSongsAdmin, cacheSongs );
+            }
+
+            var cacheNumberOfSongs = this.cache.Get< int >( CacheConstants.NumberOfSongsAdmin );
+
+            if ( cacheNumberOfSongs == 0 )
+            {
+                cacheNumberOfSongs = await this.songService.TotalAsync();
+                this.cache.Set( CacheConstants.NumberOfSongsAdmin, cacheNumberOfSongs );
+            }
+
+//            var songs = await this.songService.AllAsync( page );
+//            var nuberOfSongs = await this.songService.TotalAsync();
 
             return this.View( new IndexViewModel
             {
-                Songs = songs,
-                TotalSongs = nuberOfSongs,
+                Songs = cacheSongs,
+                TotalSongs = cacheNumberOfSongs,
                 CurrentPage = page
             } );
         }

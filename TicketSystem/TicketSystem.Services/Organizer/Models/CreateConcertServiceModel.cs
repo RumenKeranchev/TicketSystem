@@ -46,5 +46,7 @@ namespace TicketSystem.Services.Organizer.Models
 
         [ Required ]
         public List< int > Bands { get; set; }
+
+        public string PosterUrl { get; set; }
     }
 }
