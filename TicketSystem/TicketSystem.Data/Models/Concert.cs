@@ -44,6 +44,8 @@ namespace TicketSystem.Data.Models
 
         public string PosterUrl { get; set; }
 
+       // public decimal TicketPrice { get; set; }
+
         public int TicketsSold { get; set; }
 
         public string StreamUrl { get; set; }
