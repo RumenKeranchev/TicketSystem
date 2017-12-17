@@ -8,3 +8,6 @@ Finish things:
 			1. Links for bands at Details.cshtml Concerts
 			2. Apply styles corresponding to genres
 			3. Index bands albums hover
+
+Bugs:
+			1. Facebook logged in user name is incorrect

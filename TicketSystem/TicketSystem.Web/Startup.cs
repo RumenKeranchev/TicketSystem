@@ -38,6 +38,17 @@ namespace TicketSystem.Web
                 .AddEntityFrameworkStores< TicketSystemDbContext >()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddFacebook( facebookOptions =>
+            {
+                facebookOptions.AppId = this.Configuration[ "Authentication:Facebook:AppId" ];
+                facebookOptions.AppSecret = this.Configuration[ "Authentication:Facebook:AppSecret" ];
+            } );
+
+            services.Configure<MvcOptions>( options =>
+            {
+                options.Filters.Add( new RequireHttpsAttribute() );
+            } );
+
             services.AddTransient< IEmailSender, EmailSender >();
 
             services.AddMemoryCache();
