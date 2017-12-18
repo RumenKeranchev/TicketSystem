@@ -1,13 +1,4 @@
 Missing functionality:
-			6. Users can search bands and concerts
 			7. Auth users book tickets for concerts
+			8. Comments on concerts
 			9. Unit Tests
-
-
-Finish things:
-			1. Links for bands at Details.cshtml Concerts
-			2. Apply styles corresponding to genres
-			3. Index bands albums hover
-
-Bugs:
-			1. Facebook logged in user name is incorrect

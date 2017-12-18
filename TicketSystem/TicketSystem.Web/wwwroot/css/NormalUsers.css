@@ -80,3 +80,19 @@
     padding: 10px;
     list-style: none
 }
+
+.nu-LoginRegister {
+    background: url("../images/loginRegisterBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: goldenrod
+}
+
+.nu-Search {
+    background: url("../images/Users/searchBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: goldenrod
+}

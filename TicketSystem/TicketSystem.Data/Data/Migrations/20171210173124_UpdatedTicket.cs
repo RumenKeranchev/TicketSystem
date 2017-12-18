@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace TicketSystem.Data.Migrations
+namespace TicketSystem.Data.Data.Migrations
 {
     public partial class UpdatedTicket : Migration
     {

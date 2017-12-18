@@ -9,7 +9,7 @@
     document.getElementById("body").className += " CreateAlbumsAdmin FormatImage";
 </script>
 
-<h2 class="text-center">@this.ViewData[ "Title" ]</h2>
+<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
 
 <div class="row">
     <div class="col-md-3"></div>
@@ -17,13 +17,13 @@
         <form method="post" style="padding-bottom: 10px">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="@this.Model.Album.Name"></label>
-                <input asp-for="@this.Model.Album.Name" class="form-control Sharp"/>
-                <span asp-validation-for="@this.Model.Album.Name" class="text-danger"></span>
+                <label asp-for="@(this.Model.Album.Name)"></label>
+                <input asp-for="@(this.Model.Album.Name)" class="form-control Sharp"/>
+                <span asp-validation-for="@(this.Model.Album.Name)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Album.Genre"></label>
-                <select asp-for="@this.Model.Album.Genre" class="form-control Sharp">
+                <label asp-for="@(this.Model.Album.Genre)"></label>
+                <select asp-for="@(this.Model.Album.Genre)" class="form-control Sharp">
                     <option selected disabled>Select Genre...</option>
                     @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast<Genre>() )
                     {
@@ -31,23 +31,23 @@
                     }
                 </select>
 
-                <span asp-validation-for="@this.Model.Album.Genre" class="text-danger"></span>
+                <span asp-validation-for="@(this.Model.Album.Genre)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Album.BandId"></label>
-                <select asp-for="@this.Model.Album.BandId" class="form-control Sharp">
+                <label asp-for="@(this.Model.Album.BandId)"></label>
+                <select asp-for="@(this.Model.Album.BandId)" class="form-control Sharp">
                     <option selected disabled>Choose Band...</option>
                     @foreach ( var band in this.Model.Bands )
                     {
                         <option value="@band.Id">@band.Name</option>
                     }
                 </select>
-                <span asp-validation-for="@this.Model.Album.BandId" class="text-danger"></span>
+                <span asp-validation-for="@(this.Model.Album.BandId)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Album.ImageUrl"></label>
-                <input asp-for="@this.Model.Album.ImageUrl" class="form-control Sharp"/>
-                <span asp-validation-for="@this.Model.Album.ImageUrl" class="text-danger"></span>
+                <label asp-for="@(this.Model.Album.ImageUrl)"></label>
+                <input asp-for="@(this.Model.Album.ImageUrl)" class="form-control Sharp"/>
+                <span asp-validation-for="@(this.Model.Album.ImageUrl)" class="text-danger"></span>
             </div>
             <input type="submit" class="btn  btn-custom Sharp" value="Create Album"/>
         </form>

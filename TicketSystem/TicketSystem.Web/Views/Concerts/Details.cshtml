@@ -10,8 +10,8 @@
 </script>
 
 <div class="row" id="detailBody">
-    <h2 style="margin-bottom: 20px">
-        @this.ViewData[ "Title" ] - @if ( this.Model.EndDate.Date < DateTime.UtcNow.Date )
+    <h2 style="margin-bottom: 20px;margin-left: 15px">
+        @(this.ViewData[ "Title" ]) - @if ( this.Model.EndDate.Date < DateTime.UtcNow.Date )
                                     {
                                         <span style="color: crimson">Passed</span>
                                     }
@@ -20,18 +20,18 @@
                                         <span style="color: greenyellow">Upcoming</span>
                                     }
     </h2>
-    <h4 style="margin-bottom: 40px">Duration: @( ( int ) ( this.Model.EndDate - this.Model.StartDate ).TotalDays ) Day(s) from @this.Model.StartDate.ToShortDateString() to @this.Model.EndDate.ToShortDateString()</h4>
+    <h4 style="margin-bottom: 40px;margin-left: 15px">Duration: @( ( int ) ( this.Model.EndDate - this.Model.StartDate ).TotalDays ) Day(s) from @(this.Model.StartDate.ToShortDateString()) to @(this.Model.EndDate.ToShortDateString())</h4>
 
 
     <div class="col-md-8">
         <p>
             <span class="nu-details-Title">The concert took place in</span> <strong>
-                <em>@this.Model.Location - @this.Model.City - @this.Model.Country</em>
+                <em>@(this.Model.Location) - @(this.Model.City) - @(this.Model.Country)</em>
             </strong>
         </p>
         <p>
-            <span class="nu-details-Title">Genre:</span> @this.Model.Genre</p>
-        <p><span class="nu-details-Title">Tickets Sold:</span> @this.Model.TicketsSold/@this.Model.MaxNumberOfTickets</p>
+            <span class="nu-details-Title">Genre:</span> @(this.Model.Genre)</p>
+        <p><span class="nu-details-Title">Tickets Sold:</span> @(this.Model.TicketsSold)/@(this.Model.MaxNumberOfTickets)</p>
         <h5>
             <span class="nu-details-Title">Perforing Bands:</span>
         </h5>
@@ -44,7 +44,7 @@
                         @foreach ( var res in result )
                         {
                             <li>
-                                <a>@res.Name</a>
+                                <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@res.Id">@res.Name</a>
                             </li>
                         }
                     </div>
@@ -53,19 +53,21 @@
         </div>
         <br/>
         <div class="row">
-            <span class="nu-details-Title">Recording: </span>
+            <span class="nu-details-Title" style="margin-left: 15px">Recording: </span>
             @if ( this.Model.StreamUrl == null )
             {
                 @:No recordings yet...
             }
             else
             {
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/@this.Model.StreamUrl" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                <div style="margin-left: 300px">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@(this.Model.StreamUrl)" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
             }
 
         </div>
     </div>
     <div class="col-md-4">
-        <img src="@this.Model.PosterUrl" style="width: 300px; height: auto"/>
+        <img src="@(this.Model.PosterUrl)" style="width: 300px; height: 200px"/>
     </div>
 </div>

@@ -48,5 +48,8 @@ namespace TicketSystem.Services.Organizer.Models
         public List< int > Bands { get; set; }
 
         public string PosterUrl { get; set; }
+
+        [ Required ]
+        public decimal TicketPrice { get; set; }
     }
 }

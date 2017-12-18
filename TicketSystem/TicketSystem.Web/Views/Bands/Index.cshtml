@@ -15,7 +15,7 @@
 
 <div class="row" style="background: rgba(0, 0, 0, 0.4)">
 
-    <h1 class="text-center">@this.ViewData[ "Title" ]</h1>
+    <h1 class="text-center">@( this.ViewData[ "Title" ] )</h1>
     <ul class="list-group">
         @foreach ( var band in bands.OrderBy( b => b.Key ) )
         {
@@ -25,12 +25,14 @@
                     @foreach ( var b in band.OrderBy( bnd => bnd.Name ) )
                     {
                         <div class="toggler">
-                            <li class="nu-bands-ListBands" style="background: black" id="@b.Id"><a>@b.Name</a> - @b.Genre</li>
+                            <li class="nu-bands-ListBands" style="background: black" id="@b.Id"><a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@b.Id">@b.Name</a> - @b.Genre</li>
                             <li class="row " style="display: none; list-style: none" id="@b.Id-album">
                                 @foreach ( var album in b.Albums )
                                 {
                                     <div class="col-md-3">
-                                        <img src="@album.ImageUrl" style="width: 50px; height: 50px"/>
+                                        <a asp-area="" asp-controller="Bands" asp-action="AlbumDetails" asp-route-id="@album.Id">
+                                            <img src="@album.ImageUrl" style="width: 50px; height: 50px"/>
+                                        </a>
                                     </div>
                                 }
                             </li>

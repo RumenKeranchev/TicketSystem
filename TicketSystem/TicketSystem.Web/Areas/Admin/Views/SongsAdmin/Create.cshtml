@@ -8,19 +8,19 @@
     document.getElementById("body").className += " CreateSongsAdmin FormatImage";
 </script>
 
-<h2 class="text-center">@this.ViewData[ "Title" ]</h2>
+<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
 <br/>
 <div class="row ">
     <div class="col-md-3"></div>
     <div class="col-md-6" style="background-color: rgba(0, 0, 0, 0.7)">
         <form method="post"style="padding-bottom: 10px; padding-top: 10px">
             <div class="form-group">
-                <label asp-for="@this.Model.Song.Name"></label>
-                <input asp-for="@this.Model.Song.Name" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                <span asp-validation-for="@this.Model.Song.Name" class="text-danger"></span>
+                <label asp-for="@(this.Model.Song.Name)"></label>
+                <input asp-for="@(this.Model.Song.Name)" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="@(this.Model.Song.Name)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Song.Genre"></label>
+                <label asp-for="@(this.Model.Song.Genre)"></label>
                 <select asp-for="Song.Genre" class="form-control Sharp">
                     <option selected disabled>Select Genre...</option>
                     @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast< Genre >() )
@@ -28,12 +28,12 @@
                         <option value="@( ( int ) enumValue )">@enumValue</option>
                     }
                 </select>
-                <span asp-validation-for="@this.Model.Song.Genre" class="text-danger"></span>
+                <span asp-validation-for="@(this.Model.Song.Genre)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Song.UrlId"></label>
-                <input asp-for="@this.Model.Song.UrlId" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
-                <span asp-validation-for="@this.Model.Song.UrlId" class="text-danger"></span>
+                <label asp-for="@(this.Model.Song.UrlId)"></label>
+                <input asp-for="@(this.Model.Song.UrlId)" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
+                <span asp-validation-for="@(this.Model.Song.UrlId)" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label form="BandAlbum">Album</label>
@@ -49,7 +49,7 @@
                         </optgroup>
                     }
                 </select>
-                <span asp-validation-for="@this.Model.Song.AlbumId" class="text-danger"></span>
+                <span asp-validation-for="@(this.Model.Song.AlbumId)" class="text-danger"></span>
             </div>
             <input type="submit" class="btn  btn-custom Sharp" value="Create Song"/>
         </form>

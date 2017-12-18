@@ -1,5 +1,5 @@
 ﻿@using TicketSystem.Web.Areas.Admin.Models.SongsViewModels
-@model  TicketSystem.Web.Areas.Admin.Models.SongsViewModels.DeleteSongViewModel 
+@model  DeleteSongViewModel 
 
 @{
     this.ViewBag.Title = $"Delete '{this.Model.SongName}'";
@@ -10,9 +10,9 @@
     document.getElementById("body").className += " DeleteSongsAdmin FormatImage";
 </script>
 
-<h2>@this.ViewData[ "Title" ]</h2>
+<h2>@(this.ViewData[ "Title" ])</h2>
 
 <h3>Are you sure you want to delete this song?</h3>
 
-<a class="btn btn-danger Sharp" asp-area="Admin" asp-controller="SongsAdmin" asp-action="Destroy" asp-route-id="@this.Model.Id">Yes, delete it.</a>
+<a class="btn btn-danger Sharp" asp-area="Admin" asp-controller="SongsAdmin" asp-action="Destroy" asp-route-id="@(this.Model.Id)">Yes, delete it.</a>
 <a class="btn btn-default Sharp" asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index">Cancel</a>

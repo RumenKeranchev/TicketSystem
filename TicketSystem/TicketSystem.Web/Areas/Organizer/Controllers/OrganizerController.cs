@@ -27,7 +27,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
         {
             var bands = await this.organizerService.BandsAsync();
 
-            return View( new CreateConcertViewModel { Bands = bands } );
+            return this.View( new CreateConcertViewModel { Bands = bands } );
         }
 
         [ HttpPost ]

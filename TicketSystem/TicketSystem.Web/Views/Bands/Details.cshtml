@@ -1,0 +1,83 @@
+﻿@model  BandDetailsServiceModel 
+
+@{
+    this.ViewBag.Title = this.Model.Name;
+    this.Layout = "_Layout";
+    var style = "";
+}
+
+<div class="row" id="detailBody">
+
+    <h1 class="text-center" style="margin-bottom: 40px">@this.ViewData[ "Title" ] - @this.Model.Genre.ToString()</h1>
+
+    <div class="col-md-6">
+        <h2 class="text-center">Albums</h2>
+        <div class="row">
+            @foreach ( var album in this.Model.Albums )
+            {
+                <div class="row" style="margin-bottom: 15px;margin-left: 15px">
+                    <div>
+                        <div class="col-md-2">
+                            <img src="@album.ImageUrl" style="width: 90px; height: 90px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <p>
+                                <a asp-area="" asp-controller="Bands" asp-action="AlbumDetails" asp-route-id="@album.Id">@album.Name</a>
+                            </p>
+                            <ul style="list-style: none">
+                                @foreach ( var song in album.Songs )
+                                {
+                                    <li>@song.Name</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2 class="text-center">Concerts</h2>
+        <div class="row">
+            @foreach ( var concert in this.Model.Concerts.OrderBy( c => c.EndDate ) )
+            {
+                <div class="row" style="margin-bottom: 15px">
+                    <div>
+                        <div class="col-md-2">
+                            <img src="@concert.PosterUrl" style="width: 90px; height: 90px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <h4>
+                                <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">@concert.Name</a>
+                            </h4>
+                            <p>Held on @concert.StartDate.ToShortDateString() to @concert.EndDate.ToShortDateString()</p>
+                            <p>
+                                <strong>
+                                    <em>"@concert.Location"</em>
+                                </strong> - @concert.City, @concert.Country
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@{
+    if ( this.Model.Genre == Genre.Rock || this.Model.Genre == Genre.GlamRock || this.Model.Genre == Genre.PopRock )
+    {
+        style = "nu-Rock";
+    }
+    else if ( this.Model.Genre == Genre.HeavyMetal || this.Model.Genre == Genre.TrashMetal )
+    {
+        style = "nu-Metal";
+    }
+    else
+    {
+        style = "nu-House";
+    }
+}
+<script>
+    document.getElementById("body").className += " @style";
+</script>

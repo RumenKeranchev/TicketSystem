@@ -1,7 +1,7 @@
 ﻿using TicketSystem.Common.Mapping;
 using TicketSystem.Data.Models;
 
-namespace TicketSystem.Services.Normal.Models
+namespace TicketSystem.Services.Normal.Models.Bands.Albums
 {
     public class AlbumListingServiceModel : IMapFrom< Album >
     {

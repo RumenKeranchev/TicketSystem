@@ -46,7 +46,8 @@ namespace TicketSystem.Services.Organizer.Implementations
                 MaxNumberOfTickets = concertModel.MaxNumberOfTickets,
                 StartDate = concertModel.StartDate,
                 Bands = this.ConverBands( concertModel.Bands ),
-                PosterUrl = concertModel.PosterUrl
+                PosterUrl = concertModel.PosterUrl,
+                TicketPrice = concertModel.TicketPrice
             };
 
             this.db.Concerts.Add( concert );

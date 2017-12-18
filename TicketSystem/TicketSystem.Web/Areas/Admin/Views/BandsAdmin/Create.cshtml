@@ -1,5 +1,5 @@
 ﻿@using TicketSystem.Web.Areas.Admin.Models.BandsViewModels
-@model  TicketSystem.Web.Areas.Admin.Models.BandsViewModels.CreateBandViewModel 
+@model  CreateBandViewModel 
 
 @{
     this.ViewBag.Title = "Create Band";
@@ -9,7 +9,7 @@
     document.getElementById("body").className += " CreateBandsAdmin FormatImage";
 </script>
 
-<h2 class="text-center">@this.ViewData[ "Title" ]</h2>
+<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
 
 <div class="row">
     <div class="col-md-3"></div>

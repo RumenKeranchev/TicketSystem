@@ -1,0 +1,113 @@
+﻿@model SearchEverywhereServiceModel 
+
+@{
+    this.ViewBag.Title = $"Search Results For: '{this.Model.SearchTerm}'";
+    this.Layout = "_Layout";
+}
+
+<script>
+    document.getElementById("body").className += " nu-Search";
+</script>
+
+<div style="background: rgba(0, 0, 0, 0.8)">
+    <h1 class="text-center">@this.ViewData[ "Title" ]</h1>
+
+    @if ( !this.Model.Songs.Any() && !this.Model.Albums.Any() && !this.Model.Bands.Any() && !this.Model.Concerts.Any() )
+    {
+        <h3  class="text-center">No results found.</h3>
+    }
+    else
+    {
+        if ( this.Model.Songs.Any() )
+        {
+            <div class="row" style="margin-left: 200px">
+                <h2>Songs:</h2>
+                @foreach ( var song in this.Model.Songs )
+                {
+                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
+                        <a asp-area="" asp-controller="Bands" asp-action="AlbumByTrack" asp-route-id="@song.Id">
+                            @{
+                                if ( song.Name.Length > 20 )
+                                {
+                                    @( song.Name.Substring( 0, 20 ) + "..." )
+                                    ;
+                                }
+                                else
+                                {
+                                    @song.Name
+                                }
+                            }
+                        </a> - @song.Genre.ToString()
+                    </div>
+                }
+            </div>
+        }
+
+        if ( this.Model.Albums.Any() )
+        {
+            <div class="row" style="margin-left: 200px">
+                <h2>Albums:</h2>
+                @foreach ( var album in this.Model.Albums )
+                {
+                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
+                        <div class="col-md-3">
+                            <img src="@album.ImageUrl" style="width: 50px; height: 50px"/>
+                        </div>
+                        <div class="col-md-9">
+                            <a asp-area="" asp-controller="Bands" asp-action="AlbumByTrack" asp-route-id="@album.Id">
+                                @{
+                                    if ( album.Name.Length > 15 )
+                                    {
+                                        @( album.Name.Substring( 0, 15 ) + "..." )
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        @album.Name
+                                    }
+                                }
+                            </a>
+                            <p>@album.BandName </p>
+                            <p>@album.Genre</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        if ( this.Model.Bands.Any() )
+        {
+            <div class="row" style="margin-left: 200px">
+                <h2>Bands:</h2>
+                @foreach ( var bands in this.Model.Bands )
+                {
+                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
+                        <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@bands.Id"></a>
+                        <p>@bands.Name </p>
+                        <p>@bands.Genre</p>
+                    </div>
+                }
+            </div>
+        }
+        if ( this.Model.Concerts.Any() )
+        {
+            <div class="row" style="margin-left: 200px">
+                <h2>Bands:</h2>
+                @foreach ( var concert in this.Model.Concerts )
+                {
+                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
+                        <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
+                            <h3>@concert.Name</h3>
+                        </a>
+                        <p> @concert.Genre</p>
+                        <p>
+                            <strong>
+                                <em>@concert.Location - @concert.City,@concert.Country</em>
+                            </strong>
+                        </p>
+                        <p>@concert.StartDate.ToShortDateString() - @concert.EndDate.ToShortDateString()</p>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>

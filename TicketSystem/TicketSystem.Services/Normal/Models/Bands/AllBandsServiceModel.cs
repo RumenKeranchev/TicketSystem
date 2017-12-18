@@ -2,6 +2,7 @@
 using AutoMapper;
 using TicketSystem.Common.Mapping;
 using TicketSystem.Data.Models;
+using TicketSystem.Services.Normal.Models.Bands.Albums;
 
 namespace TicketSystem.Services.Normal.Models.Bands
 {

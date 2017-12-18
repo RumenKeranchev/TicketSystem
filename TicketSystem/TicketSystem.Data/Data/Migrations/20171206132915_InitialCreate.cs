@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace TicketSystem.Data.Migrations
+namespace TicketSystem.Data.Data.Migrations
 {
     public partial class InitialCreate : Migration
     {

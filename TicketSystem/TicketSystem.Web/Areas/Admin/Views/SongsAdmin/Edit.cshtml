@@ -1,5 +1,5 @@
 ﻿@using TicketSystem.Web.Areas.Admin.Models.SongsViewModels
-@model TicketSystem.Web.Areas.Admin.Models.SongsViewModels.CreateSongViewModel 
+@model CreateSongViewModel 
 
 @{
     ViewBag.Title = "Edit Song";
@@ -16,12 +16,12 @@
 
         <form method="post">
             <div class="form-group">
-                <label asp-for="@this.Model.Song.Name"></label>
-                <input asp-for="@this.Model.Song.Name" class="form-control Sharp" placeholder="Enter Song Name..."/>
-                <span asp-validation-for="@this.Model.Song.Name" class="text-danger"></span>
+                <label asp-for="@(this.Model.Song.Name)"></label>
+                <input asp-for="@(this.Model.Song.Name)" class="form-control Sharp" placeholder="Enter Song Name..."/>
+                <span asp-validation-for="@(this.Model.Song.Name)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Song.Genre"></label>
+                <label asp-for="@(this.Model.Song.Genre)"></label>
                 <select asp-for="Song.Genre" class="form-control Sharp">
                     <option selected disabled>Select Genre...</option>
                     @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast< Genre >() )
@@ -29,12 +29,12 @@
                         <option value="@( ( int ) enumValue )">@enumValue</option>
                     }
                 </select>
-                <span asp-validation-for="@this.Model.Song.Genre" class="text-danger"></span>
+                <span asp-validation-for="@(this.Model.Song.Genre)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@this.Model.Song.UrlId"></label>
-                <input asp-for="@this.Model.Song.UrlId" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
-                <span asp-validation-for="@this.Model.Song.UrlId" class="text-danger"></span>
+                <label asp-for="@(this.Model.Song.UrlId)"></label>
+                <input asp-for="@(this.Model.Song.UrlId)" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
+                <span asp-validation-for="@(this.Model.Song.UrlId)" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label form="BandAlbum">Album</label>
