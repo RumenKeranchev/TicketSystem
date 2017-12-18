@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TicketSystem.Data;
+using TicketSystem.Data.Models;
 using TicketSystem.Services.Normal.Contracts;
 using TicketSystem.Services.Normal.Models.Users;
 
@@ -109,6 +111,43 @@ namespace TicketSystem.Services.Normal.Implementation
             }
 
             return result;
+        }
+
+        public async Task< bool > BookTicket( BookTicketServiceModel serviceModel )
+        {
+            if ( serviceModel == null )
+            {
+                return false;
+            }
+
+            var ticket = new Ticket
+            {
+                ConcertId = serviceModel.ConcertId,
+                Count = serviceModel.Count,
+                TicketPrice = serviceModel.TicketPrice,
+                UserId = serviceModel.UserId
+            };
+
+            this.db.Tickets.Add( ticket );
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task< IEnumerable< ListAllTicketsServiceModel > > Cart( string userId )
+        {
+            if ( string.IsNullOrEmpty( userId ) )
+            {
+                return null;
+            }
+
+            var tickets = await this.db
+                .Tickets
+                .Where( t => t.UserId == userId )
+                .ProjectTo< ListAllTicketsServiceModel >()
+                .ToListAsync();
+
+            return tickets;
         }
     }
 }

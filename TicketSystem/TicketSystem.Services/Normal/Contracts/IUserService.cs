@@ -14,6 +14,10 @@ namespace TicketSystem.Services.Normal.Contracts
 
         Task< IEnumerable< SearchConcertsServiceModel > > SearchConcertsAsync( string searchTerm );
 
-        Task< SearchEverywhereServiceModel > SearchEverywhereAsync(string searchTerm);
+        Task< SearchEverywhereServiceModel > SearchEverywhereAsync( string searchTerm );
+
+        Task< bool > BookTicket( BookTicketServiceModel serviceModel );
+
+        Task< IEnumerable< ListAllTicketsServiceModel > > Cart( string userId );
     }
 }

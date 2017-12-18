@@ -1,4 +1,3 @@
 Missing functionality:
-			7. Auth users book tickets for concerts
 			8. Comments on concerts
 			9. Unit Tests

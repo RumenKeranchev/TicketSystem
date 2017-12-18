@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TicketSystem.Services.Normal.Contracts;
+using TicketSystem.Services.Normal.Models.Users;
+using TicketSystem.Web.Models;
 
 namespace TicketSystem.Web.Controllers
 {
@@ -17,7 +19,10 @@ namespace TicketSystem.Web.Controllers
         {
             var concert = await this.concertService.DetailsAsync( id );
 
-            return this.View( concert );
+            return this.View( new ConcertDetailsViewModel
+            {
+                Concert = concert
+            } );
         }
     }
 }

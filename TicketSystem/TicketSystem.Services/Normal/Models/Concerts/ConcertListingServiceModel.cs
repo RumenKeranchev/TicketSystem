@@ -9,6 +9,8 @@ namespace TicketSystem.Services.Normal.Models.Concerts
 {
     public class ConcertListingServiceModel : IMapFrom< Concert >, IHaveCustomMapping
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public DateTime StartDate { get; set; }
@@ -30,6 +32,8 @@ namespace TicketSystem.Services.Normal.Models.Concerts
         public string PosterUrl { get; set; }
 
         public string StreamUrl { get; set; }
+        
+        public decimal TicketPrice { get; set; }
 
         public IEnumerable< BandsForConcertServiceModel > Bands { get; set; }
 

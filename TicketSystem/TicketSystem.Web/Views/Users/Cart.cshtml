@@ -1,0 +1,44 @@
+﻿@model  IEnumerable< ListAllTicketsServiceModel > 
+
+@{
+    this.ViewBag.Title = "Cart";
+    this.Layout = "_Layout";
+}
+
+<h2>@this.ViewData[ "Title" ]</h2>
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Concert Name</th>
+            <th>Number Of Tickets</th>
+            <th>Sum</th>
+            <th>Paid</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ( var ticket in this.Model )
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>
+                    <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@ticket.ConcertId">@ticket.ConcertName</a> : From <strong>
+                        <em>@ticket.ConcertStartDate.ToShortDateString()</em>
+                    </strong> to <strong>
+                        <em>@ticket.ConcertEndDate.ToShortDateString()</em>
+                    </strong>
+                </td>
+                <td>@ticket.Count</td>
+                <td>$@ticket.TicketPrice</td>
+                <td>@(ticket.IsPaid ? "Yes" : "No")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div>
+        <a>Browse More Concerts</a>
+        <a>Go to Checkout?</a>
+    </div>
+</div>

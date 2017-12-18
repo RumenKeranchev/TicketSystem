@@ -1,7 +1,7 @@
-﻿@model  ConcertListingServiceModel 
+﻿@model ConcertDetailsViewModel 
 
 @{
-    this.ViewBag.Title = this.Model.Name;
+    this.ViewBag.Title = this.Model.Concert.Name;
     this.Layout = "_Layout";
 }
 
@@ -10,64 +10,97 @@
 </script>
 
 <div class="row" id="detailBody">
-    <h2 style="margin-bottom: 20px;margin-left: 15px">
-        @(this.ViewData[ "Title" ]) - @if ( this.Model.EndDate.Date < DateTime.UtcNow.Date )
-                                    {
-                                        <span style="color: crimson">Passed</span>
-                                    }
-                                    else
-                                    {
-                                        <span style="color: greenyellow">Upcoming</span>
-                                    }
-    </h2>
-    <h4 style="margin-bottom: 40px;margin-left: 15px">Duration: @( ( int ) ( this.Model.EndDate - this.Model.StartDate ).TotalDays ) Day(s) from @(this.Model.StartDate.ToShortDateString()) to @(this.Model.EndDate.ToShortDateString())</h4>
+    <div class="row" style="margin-bottom: 20px; margin-left: 15px">
+        <h2>
+            @( this.ViewData[ "Title" ] ) - @if ( this.Model.Concert.EndDate.Date < DateTime.UtcNow.Date )
+                                            {
+                                                <span style="color: crimson">Passed</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="color: greenyellow">Upcoming</span>
+                                            }
+        </h2>
+        <h4 style="margin-bottom: 40px; margin-left: 15px">Duration: @( ( int ) ( this.Model.Concert.EndDate - this.Model.Concert.StartDate ).TotalDays ) Day(s) from @( this.Model.Concert.StartDate.ToShortDateString() ) to @( this.Model.Concert.EndDate.ToShortDateString() )</h4>
 
 
-    <div class="col-md-8">
-        <p>
-            <span class="nu-details-Title">The concert took place in</span> <strong>
-                <em>@(this.Model.Location) - @(this.Model.City) - @(this.Model.Country)</em>
-            </strong>
-        </p>
-        <p>
-            <span class="nu-details-Title">Genre:</span> @(this.Model.Genre)</p>
-        <p><span class="nu-details-Title">Tickets Sold:</span> @(this.Model.TicketsSold)/@(this.Model.MaxNumberOfTickets)</p>
-        <h5>
-            <span class="nu-details-Title">Perforing Bands:</span>
-        </h5>
-        <div class="row">
-            <ul style="list-style: none">
-                @for ( int i = 0 ; i < this.Model.Bands.Count() ; i += 3 )
+        <div class="col-md-8">
+            <p>
+                <span class="nu-details-Title">The concert took place in</span> <strong>
+                    <em>@( this.Model.Concert.Location ) - @( this.Model.Concert.City ) - @( this.Model.Concert.Country )</em>
+                </strong>
+            </p>
+            <p>
+                <span class="nu-details-Title">Genre:</span> @( this.Model.Concert.Genre )
+            </p>
+            <p>
+                <span class="nu-details-Title">Tickets Sold:</span> @( this.Model.Concert.TicketsSold )/@( this.Model.Concert.MaxNumberOfTickets )
+            </p>
+            <h5>
+                <span class="nu-details-Title">Perforing Bands:</span>
+            </h5>
+            <div class="row">
+                <ul style="list-style: none">
+                    @for ( int i = 0 ; i < this.Model.Concert.Bands.Count() ; i += 3 )
+                    {
+                        var result = this.Model.Concert.Bands.Skip( i ).Take( 3 );
+                        <div class="col-md-3">
+                            @foreach ( var res in result )
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@res.Id">@res.Name</a>
+                                </li>
+                            }
+                        </div>
+                    }
+                </ul>
+            </div>
+            <br/>
+            <div class="row">
+                <span class="nu-details-Title" style="margin-left: 15px">Recording: </span>
+                @if ( this.Model.Concert.StreamUrl == null )
                 {
-                    var result = this.Model.Bands.Skip( i ).Take( 3 );
-                    <div class="col-md-3">
-                        @foreach ( var res in result )
-                        {
-                            <li>
-                                <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@res.Id">@res.Name</a>
-                            </li>
-                        }
+                    @:No recordings yet...
+                }
+                else
+                {
+                    <div style="margin-left: 300px">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/@( this.Model.Concert.StreamUrl )" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                     </div>
                 }
-            </ul>
-        </div>
-        <br/>
-        <div class="row">
-            <span class="nu-details-Title" style="margin-left: 15px">Recording: </span>
-            @if ( this.Model.StreamUrl == null )
-            {
-                @:No recordings yet...
-            }
-            else
-            {
-                <div style="margin-left: 300px">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@(this.Model.StreamUrl)" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                </div>
-            }
 
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img src="@( this.Model.Concert.PosterUrl )" style="width: 300px; height: 200px"/>
+            <h3>Ticket Price: @this.Model.Concert.TicketPrice</h3>
         </div>
     </div>
-    <div class="col-md-4">
-        <img src="@(this.Model.PosterUrl)" style="width: 300px; height: 200px"/>
-    </div>
+    @if ( this.Model.Concert.EndDate > DateTime.UtcNow  && this.User.Identity.IsAuthenticated)
+    {
+        <div class="row" style="margin-left: 15px">
+            <div class="col-md-3">
+                <form method="post" asp-area="" asp-controller="Users" asp-action="AddToCart">
+                    <input type="hidden" value="@this.Model.Concert.Id" name="ConcertId"/>
+                    <div class="form-group">
+                        <label for="Count">Number Of Tickets</label>
+                        <input asp-for="@this.Model.BookTicket.Count" class="form-control" name="Count" id="Count" min="1"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="TicketPrice">Sum</label>
+                        <input asp-for="@this.Model.BookTicket.TicketPrice" readonly name="TicketPrice" id="TicketPrice" class="form-control" value="" />
+                    </div>
+                    <input type="submit" value="Book a Ticket" class="btn btn-success Sharp"/>
+                </form>
+            </div>
+        </div>
+    }
 </div>
+
+<script>
+    var inputBox = document.getElementById('Count');
+
+    inputBox.onkeyup = function(){
+        document.getElementById('TicketPrice').value = inputBox.value * @this.Model.Concert.TicketPrice;
+    }
+</script>

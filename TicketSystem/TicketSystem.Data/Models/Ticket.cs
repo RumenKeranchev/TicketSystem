@@ -8,9 +8,6 @@ namespace TicketSystem.Data.Models
         public int Id { get; set; }
 
         [ Required ]
-        public decimal Price { get; set; }
-
-        [ Required ]
         public int Count { get; set; }
 
         [ Required ]
@@ -23,6 +20,11 @@ namespace TicketSystem.Data.Models
 
         public Concert Concert { get; set; }
 
+        [ Required ]
         public bool IsPaid { get; set; }
+
+        [ Required ]
+        public decimal TicketPrice { get; set; }
+        
     }
 }
