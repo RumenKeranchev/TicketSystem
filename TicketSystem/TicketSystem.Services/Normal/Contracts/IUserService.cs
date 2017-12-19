@@ -16,8 +16,18 @@ namespace TicketSystem.Services.Normal.Contracts
 
         Task< SearchEverywhereServiceModel > SearchEverywhereAsync( string searchTerm );
 
-        Task< bool > BookTicket( BookTicketServiceModel serviceModel );
+        Task< bool > BookTicketAsync( BookTicketServiceModel serviceModel );
 
-        Task< IEnumerable< ListAllTicketsServiceModel > > Cart( string userId );
+        Task< IEnumerable< ListAllTicketsServiceModel > > CartAsync( string userId );
+
+        Task< bool > PostCommentAsync( CommentOnConcertServiceModel model );
+
+        Task< IEnumerable< ListAllCommentsServiceModel > > AllCommentsForConcertAsync( int concertId );
+
+        Task< IEnumerable< CheckoutTicketServiceModel > > ListCheckoutAsync( List< int > ids );
+
+        Task< bool > GetSumToCheckoutAsync( List< int > ids, decimal sum );
+
+        Task< bool > FinalizeOrderAsync( List< int >ids );
     }
 }

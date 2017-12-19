@@ -65,14 +65,7 @@ namespace TicketSystem.Web.Controllers
             {
                 return this.BadRequest();
             }
-
-            var value = this.cache.Get< DetailedAlbumListingServiceModel >( CacheConstants.AlbumDetailsKey );
-
-            if ( value == null )
-            {
-                value = await this.bandService.AlbumDetailsAsync( id );
-                this.cache.Set( CacheConstants.AlbumDetailsKey, value );
-            }
+            var value = await this.bandService.AlbumDetailsAsync( id );
 
             return this.View( value );
         }

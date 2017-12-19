@@ -44,10 +44,7 @@ namespace TicketSystem.Web
                 facebookOptions.AppSecret = this.Configuration[ "Authentication:Facebook:AppSecret" ];
             } );
 
-            services.Configure<MvcOptions>( options =>
-            {
-                options.Filters.Add( new RequireHttpsAttribute() );
-            } );
+            services.Configure< MvcOptions >( options => { options.Filters.Add( new RequireHttpsAttribute() ); } );
 
             services.AddTransient< IEmailSender, EmailSender >();
 

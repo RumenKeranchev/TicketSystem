@@ -31,13 +31,23 @@ namespace TicketSystem.Services.Normal.Implementation
             return concert;
         }
 
-        public async Task< IEnumerable< ListPreviousConcertsServiceModel > > GetPrevious()
+        public async Task< IEnumerable< ListPreviousConcertsServiceModel > > GetPreviousAsync()
         {
             var concerts = await this.db
                 .Concerts
                 .Where( c => c.EndDate < DateTime.UtcNow )
                 .Take( WebConstants.PrevoiusConcerts )
                 .ProjectTo< ListPreviousConcertsServiceModel >()
+                .ToListAsync();
+
+            return concerts;
+        }
+
+        public async Task< IEnumerable< IndexConcertsServiceModel > > IndexAsync()
+        {
+            var concerts = await this.db
+                .Concerts
+                .ProjectTo< IndexConcertsServiceModel >()
                 .ToListAsync();
 
             return concerts;

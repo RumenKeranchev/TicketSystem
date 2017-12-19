@@ -113,7 +113,7 @@ namespace TicketSystem.Services.Normal.Implementation
             return result;
         }
 
-        public async Task< bool > BookTicket( BookTicketServiceModel serviceModel )
+        public async Task< bool > BookTicketAsync( BookTicketServiceModel serviceModel )
         {
             if ( serviceModel == null )
             {
@@ -134,7 +134,7 @@ namespace TicketSystem.Services.Normal.Implementation
             return true;
         }
 
-        public async Task< IEnumerable< ListAllTicketsServiceModel > > Cart( string userId )
+        public async Task< IEnumerable< ListAllTicketsServiceModel > > CartAsync( string userId )
         {
             if ( string.IsNullOrEmpty( userId ) )
             {
@@ -148,6 +148,119 @@ namespace TicketSystem.Services.Normal.Implementation
                 .ToListAsync();
 
             return tickets;
+        }
+
+        public async Task< bool > PostCommentAsync( CommentOnConcertServiceModel model )
+        {
+            if ( model == null )
+            {
+                return false;
+            }
+
+            var comment = new Comment
+            {
+                UserId = model.UserId,
+                ConcertId = model.ConcertId,
+                Content = model.Content
+            };
+
+            this.db.Comments.Add( comment );
+            await this.db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task< IEnumerable< ListAllCommentsServiceModel > > AllCommentsForConcertAsync( int concertId )
+        {
+            if ( concertId <= 0 )
+            {
+                return null;
+            }
+
+            var comments = await this.db
+                .Comments
+                .Where( c => c.ConcertId == concertId )
+                .ProjectTo< ListAllCommentsServiceModel >()
+                .ToListAsync();
+
+            return comments;
+        }
+
+        public async Task< IEnumerable< CheckoutTicketServiceModel > > ListCheckoutAsync( List< int > ids )
+        {
+            if ( !ids.Any() )
+            {
+                return null;
+            }
+
+            var tickets = await this.db
+                .Tickets
+                .Where( t => ids.Contains( t.Id ) && t.IsPaid == false )
+                .ProjectTo< CheckoutTicketServiceModel >()
+                .ToListAsync();
+
+            return tickets;
+        }
+
+        public async Task< bool > GetSumToCheckoutAsync( List< int > ids, decimal sum )
+        {
+            if ( !ids.Any() )
+            {
+                return false;
+            }
+
+            if ( sum <= 0.0m )
+            {
+                return false;
+            }
+
+            var tickets = await this.ListCheckoutAsync( ids );
+
+            if ( !tickets.Any() )
+            {
+                return false;
+            }
+
+            var sumTickets = tickets.Sum( t => t.TicketPrice );
+
+            if ( sumTickets == sum )
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task< bool > FinalizeOrderAsync( List< int > ids )
+        {
+            if ( !ids.Any() )
+            {
+                return false;
+            }
+
+            var tickets = await this.ListCheckoutAsync( ids );
+
+            if ( !tickets.Any() )
+            {
+                return false;
+            }
+
+            foreach ( var ticket in tickets )
+            {
+                var ticketUpdated = await this.db.Tickets.FirstOrDefaultAsync( t => t.Id == ticket.Id );
+                if ( ticketUpdated != null )
+                {
+                    ticketUpdated.IsPaid = true;
+                    this.db.Update( ticketUpdated );
+
+                    var concert = this.db.Concerts.FirstOrDefault( c => c.Id == ticketUpdated.ConcertId );
+                    concert.TicketsSold += ticketUpdated.Count;
+
+                    this.db.Update( concert );
+                }
+            }
+
+            await this.db.SaveChangesAsync();
+            return true;
         }
     }
 }

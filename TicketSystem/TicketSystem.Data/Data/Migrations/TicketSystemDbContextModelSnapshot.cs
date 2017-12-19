@@ -182,6 +182,26 @@ namespace TicketSystem.Data.Data.Migrations
                     b.ToTable("BandConcert");
                 });
 
+            modelBuilder.Entity("TicketSystem.Data.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConcertId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConcertId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("TicketSystem.Data.Models.Concert", b =>
                 {
                     b.Property<int>("Id")
@@ -390,6 +410,18 @@ namespace TicketSystem.Data.Data.Migrations
                         .WithMany("Bands")
                         .HasForeignKey("ConcertId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TicketSystem.Data.Models.Comment", b =>
+                {
+                    b.HasOne("TicketSystem.Data.Models.Concert", "Concert")
+                        .WithMany("Comments")
+                        .HasForeignKey("ConcertId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TicketSystem.Data.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TicketSystem.Data.Models.Song", b =>

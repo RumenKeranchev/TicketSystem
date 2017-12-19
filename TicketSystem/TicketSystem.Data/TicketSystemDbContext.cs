@@ -16,6 +16,8 @@ namespace TicketSystem.Data
 
         public DbSet< Ticket > Tickets { get; set; }
 
+        public DbSet< Comment > Comments { get; set; }
+
         public TicketSystemDbContext( DbContextOptions< TicketSystemDbContext > options )
             : base( options )
         {
@@ -68,6 +70,18 @@ namespace TicketSystem.Data
                 .HasOne( t => t.User )
                 .WithMany( u => u.Tickets )
                 .HasForeignKey( t => t.UserId );
+
+            builder
+                .Entity< Comment >()
+                .HasOne( com => com.User )
+                .WithMany( u => u.Comments )
+                .HasForeignKey( u => u.UserId );
+
+            builder
+                .Entity< Comment >()
+                .HasOne( com => com.Concert )
+                .WithMany( c => c.Comments )
+                .HasForeignKey( c => c.ConcertId );
 
             base.OnModelCreating( builder );
         }

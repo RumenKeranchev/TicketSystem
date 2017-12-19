@@ -96,3 +96,14 @@
     background-attachment: fixed;
     color: goldenrod
 }
+
+.nu-Concert-Comments {
+    background-color: rgb(50, 50, 50);
+    border-radius: 0px;
+    margin-bottom: 10px
+}
+
+.dropdown-menu > li > a:hover {
+    background: rgb(20, 20, 20) !important;
+    background-image: none !important;
+}

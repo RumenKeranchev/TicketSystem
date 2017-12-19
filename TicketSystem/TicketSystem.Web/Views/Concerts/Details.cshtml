@@ -1,10 +1,11 @@
-﻿@model ConcertDetailsViewModel 
+﻿@model  ConcertDetailsViewModel 
 
 @{
     this.ViewBag.Title = this.Model.Concert.Name;
     this.Layout = "_Layout";
 }
-
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script>tinymce.init({ selector: 'textarea' });</script>
 <script>
     document.getElementById("body").className += " nu-House";
 </script>
@@ -73,10 +74,10 @@
         </div>
         <div class="col-md-4">
             <img src="@( this.Model.Concert.PosterUrl )" style="width: 300px; height: 200px"/>
-            <h3>Ticket Price: @this.Model.Concert.TicketPrice</h3>
+            <h3>Ticket Price: $@this.Model.Concert.TicketPrice</h3>
         </div>
     </div>
-    @if ( this.Model.Concert.EndDate > DateTime.UtcNow  && this.User.Identity.IsAuthenticated)
+    @if ( this.Model.Concert.EndDate > DateTime.UtcNow && this.User.Identity.IsAuthenticated )
     {
         <div class="row" style="margin-left: 15px">
             <div class="col-md-3">
@@ -88,19 +89,48 @@
                     </div>
                     <div class="form-group">
                         <label for="TicketPrice">Sum</label>
-                        <input asp-for="@this.Model.BookTicket.TicketPrice" readonly name="TicketPrice" id="TicketPrice" class="form-control" value="" />
+                        <input asp-for="@this.Model.BookTicket.TicketPrice" readonly name="TicketPrice" id="TicketPrice" class="form-control" value="" style="background: rgb(220, 220, 220)"/>
                     </div>
                     <input type="submit" value="Book a Ticket" class="btn btn-success Sharp"/>
                 </form>
             </div>
         </div>
+        <div class="row" style="margin-top: 50px; margin-left: 15px">
+            <form method="post" asp-area="" asp-controller="Users" asp-action="Comment">
+                <div class="col-md-6">
+                    <textarea asp-for="@this.Model.Comment.Content" id="Content" name="Content" class="form-control Sharp" placeholder="Enter Comment..."></textarea>
+                    <input type="hidden" value="@this.Model.Concert.Id" name="ConcertId"/>
+                    <input type="submit" value="Comment" class="btn btn-default Sharp"/>
+                </div>
+            </form>
+        </div>
     }
+    else
+    {
+        <div class="row" style="margin-left: 30px">
+            <h4>To book tickets or comment you must be <a asp-area="" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@this.Context.Request.Path">registered</a>.<br/>If you already have an account please click <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@this.Context.Request.Path">here</a> to login.</h4>
+        </div>
+    }
+    <div class="row" style="margin-top: 50px">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 style="color: crimson">Comments ( @this.Model.Comments.Count() ):</h4>
+            <ul >
+                @foreach ( var comment in this.Model.Comments )
+                {
+                    <li class="list-group-item nu-Concert-Comments"><span style="color: cyan">@comment.Name:</span> @this.Html.Raw( comment.Content )</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 </div>
+
 
 <script>
     var inputBox = document.getElementById('Count');
 
-    inputBox.onkeyup = function(){
+    inputBox.onkeyup = function() {
         document.getElementById('TicketPrice').value = inputBox.value * @this.Model.Concert.TicketPrice;
     }
 </script>

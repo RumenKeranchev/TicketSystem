@@ -8,6 +8,8 @@ namespace TicketSystem.Services.Normal.Contracts
     {
         Task< ConcertListingServiceModel > DetailsAsync( int id );
 
-        Task< IEnumerable< ListPreviousConcertsServiceModel > > GetPrevious();
+        Task< IEnumerable< ListPreviousConcertsServiceModel > > GetPreviousAsync();
+
+        Task< IEnumerable< IndexConcertsServiceModel > > IndexAsync();
     }
 }

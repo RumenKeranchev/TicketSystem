@@ -117,11 +117,18 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li>
-                        <a asp-area="" asp-controller="Bands" asp-action="Index">Browse Bands</a>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle">Browse <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Bands" asp-action="Index">Browse Bands</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Concerts" asp-action="Index">Browse Concerts</a>
+                            </li>
+                        </ul>
                     </li>
-                  </ul>
+                </ul>
                 @await this.Html.PartialAsync( "_LoginPartial" )
             </div>
         </div>

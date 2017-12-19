@@ -1,0 +1,82 @@
+﻿@model  IEnumerable< IndexConcertsServiceModel > 
+
+@{
+    ViewBag.Title = "Concerts";
+    Layout = "_Layout";
+    var half = this.Model.Count() / 2;
+}
+<script>
+    document.getElementById("body").className += " nu-Search";
+</script>
+
+<div class="row" style="background: rgba(0, 0, 0, 0.8)">
+    <h2 class="text-center">@this.ViewData[ "Title" ]</h2>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <ul class="list-group">
+                @foreach ( var concert in this.Model.OrderBy( c => c.Name ).Take( half ) )
+                {
+                    <li class="list-group-item" style="margin-bottom: 20px; background: black;border-color: goldenrod">
+                        <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
+                            <span style="font-size: 20px">@concert.Name</span>
+                        </a> -
+                        @if ( concert.EndDate < DateTime.UtcNow.Date )
+                        {
+                            <span style="color: crimson">Passed</span>
+                        }
+                        else
+                        {
+                            <span style="color: greenyellow">Upcoming</span>
+                        }
+                        <p>
+                            From <strong>
+                                <em>@concert.StartDate.ToShortDateString()</em>
+                            </strong> To <strong>
+                                <em>@concert.EndDate.ToShortDateString()</em>
+                            </strong>
+                        </p>
+                        <p>
+                            At <em><strong>@concert.Location</strong> - @concert.City,@concert.Country</em>
+                        </p>
+                        <p>Genre: @concert.Genre.ToString()</p>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <ul class="list-group">
+                @foreach ( var concert in this.Model.OrderBy( c => c.Name ).Skip( half ) )
+                {
+                    <li class="list-group-item" style="margin-bottom: 20px; background: black;border-color: goldenrod">
+                        <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
+                            <span style="font-size: 20px">@concert.Name</span>
+                        </a> -
+                        @if ( concert.EndDate < DateTime.UtcNow.Date )
+                        {
+                            <span style="color: crimson">Passed</span>
+                        }
+                        else
+                        {
+                            <span style="color: greenyellow">Upcoming</span>
+                        }
+                        <p>
+                            From <strong>
+                                <em>@concert.StartDate.ToShortDateString()</em>
+                            </strong> To <strong>
+                                <em>@concert.EndDate.ToShortDateString()</em>
+                            </strong>
+                        </p>
+                        <p>
+                            At <em><strong>@concert.Location</strong> - @concert.City,@concert.Country</em>
+                        </p>
+                        <p>Genre: @concert.Genre.ToString()</p>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="col-md-1"></div>
+    </div>
+</div>

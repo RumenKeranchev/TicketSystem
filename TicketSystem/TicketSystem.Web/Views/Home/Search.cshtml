@@ -3,6 +3,10 @@
 @{
     this.ViewBag.Title = $"Search Results For: '{this.Model.SearchTerm}'";
     this.Layout = "_Layout";
+    var halfSongs = this.Model.Songs.Count() / 2;
+    var halfAlbums = this.Model.Albums.Count() / 2;
+    var halfBands = this.Model.Bands.Count() / 2;
+    var halfConcerts = this.Model.Concerts.Count() / 2;
 }
 
 <script>
@@ -14,99 +18,177 @@
 
     @if ( !this.Model.Songs.Any() && !this.Model.Albums.Any() && !this.Model.Bands.Any() && !this.Model.Concerts.Any() )
     {
-        <h3  class="text-center">No results found.</h3>
+        <h3 class="text-center">No results found.</h3>
     }
     else
     {
         if ( this.Model.Songs.Any() )
         {
-            <div class="row" style="margin-left: 200px">
-                <h2>Songs:</h2>
-                @foreach ( var song in this.Model.Songs )
-                {
-                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
-                        <a asp-area="" asp-controller="Bands" asp-action="AlbumByTrack" asp-route-id="@song.Id">
-                            @{
-                                if ( song.Name.Length > 20 )
-                                {
-                                    @( song.Name.Substring( 0, 20 ) + "..." )
-                                    ;
-                                }
-                                else
-                                {
-                                    @song.Name
-                                }
+            <div class="row">
+                <h2 style="margin-left: 100px">Songs:</h2>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var song in this.Model.Songs.OrderBy( c => c.Name ).Take( halfSongs ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <a asp-area="" asp-controller="Bands" asp-action="AlbumByTrack" asp-route-id="@song.Id">
+                                        <span style="font-size: 20px">@song.Name</span>
+                                    </a> - @song.Genre.ToString()
+                                </li>
                             }
-                        </a> - @song.Genre.ToString()
+                        </ul>
                     </div>
-                }
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var song in this.Model.Songs.OrderBy( c => c.Name ).Skip( halfSongs ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <a asp-area="" asp-controller="Bands" asp-action="AlbumByTrack" asp-route-id="@song.Id">
+                                        <span style="font-size: 20px">@song.Name</span>
+                                    </a> - @song.Genre.ToString()
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="col-md-1"></div>
+                </div>
             </div>
         }
 
         if ( this.Model.Albums.Any() )
         {
-            <div class="row" style="margin-left: 200px">
-                <h2>Albums:</h2>
-                @foreach ( var album in this.Model.Albums )
-                {
-                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
-                        <div class="col-md-3">
-                            <img src="@album.ImageUrl" style="width: 50px; height: 50px"/>
-                        </div>
-                        <div class="col-md-9">
-                            <a asp-area="" asp-controller="Bands" asp-action="AlbumByTrack" asp-route-id="@album.Id">
-                                @{
-                                    if ( album.Name.Length > 15 )
-                                    {
-                                        @( album.Name.Substring( 0, 15 ) + "..." )
-                                        ;
-                                    }
-                                    else
-                                    {
-                                        @album.Name
-                                    }
-                                }
-                            </a>
-                            <p>@album.BandName </p>
-                            <p>@album.Genre</p>
-                        </div>
+            <div class="row">
+                <h2 style="margin-left: 100px">Albums:</h2>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var album in this.Model.Albums.OrderBy( c => c.Name ).Take( halfAlbums ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <img src="@album.ImageUrl" style="width: 50px; height: 50px"/>
+                                    <a asp-area="" asp-controller="Bands" asp-action="AlbumDetails" asp-route-id="@album.Id">
+                                        <span style="font-size: @( album.Name.Length >= 25 ? 10 : 20 )px">@album.Name</span>
+                                    </a>
+                                    <p>@album.BandName - @album.Genre</p>
+                                </li>
+                            }
+                        </ul>
                     </div>
-                }
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var album in this.Model.Albums.OrderBy( c => c.Name ).Skip( halfAlbums ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <img src="@album.ImageUrl" style="width: 50px; height: 50px"/>
+                                    <a asp-area="" asp-controller="Bands" asp-action="AlbumDetails" asp-route-id="@album.Id">
+                                        <span style="font-size: @( album.Name.Length >= 25 ? 15 : 20 )px">@album.Name</span>
+                                    </a>
+                                    <p>@album.BandName - @album.Genre</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="col-md-1"></div>
+                </div>
             </div>
         }
         if ( this.Model.Bands.Any() )
         {
-            <div class="row" style="margin-left: 200px">
-                <h2>Bands:</h2>
-                @foreach ( var bands in this.Model.Bands )
-                {
-                    <div class="col-md-12 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
-                        <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@bands.Id"></a>
-                        <p>@bands.Name </p>
-                        <p>@bands.Genre</p>
+            <div class="row">
+                <h2 style="margin-left: 100px">Bands:</h2>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var band in this.Model.Bands.OrderBy( c => c.Name ).Take( halfBands ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@band.Id">
+                                        <span style="font-size: @( band.Name.Length >= 25 ? 10 : 20 )px">@band.Name</span>
+                                    </a>
+                                    <p>@band.Name - @band.Genre</p>
+                                </li>
+                            }
+                        </ul>
                     </div>
-                }
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var band in this.Model.Bands.OrderBy( c => c.Name ).Skip( halfBands ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@band.Id">
+                                        <span style="font-size: @( band.Name.Length >= 25 ? 10 : 20 )px">@band.Name</span>
+                                    </a>
+                                    <p>@band.Name - @band.Genre</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
             </div>
         }
         if ( this.Model.Concerts.Any() )
         {
-            <div class="row" style="margin-left: 200px">
-                <h2>Concerts:</h2>
-                @foreach ( var concert in this.Model.Concerts )
-                {
-                    <div class="col-md-4 list-group-item" style="margin-bottom: 15px; margin-left: 5px">
-                        <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
-                            <h3>@concert.Name</h3>
-                        </a>
-                        <p> @concert.Genre</p>
-                        <p>
-                            <strong>
-                                <em>@concert.Location - @concert.City,@concert.Country</em>
-                            </strong>
-                        </p>
-                        <p>@concert.StartDate.ToShortDateString() - @concert.EndDate.ToShortDateString()</p>
+            <div class="row">
+                <h2 style="margin-left: 100px">Concerts:</h2>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var concert in this.Model.Concerts.OrderBy( c => c.Name ).Take( halfConcerts ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
+                                        <span style="font-size: @( concert.Name.Length >= 25 ? 10 : 20 )px">@concert.Name</span>
+                                    </a>
+
+                                    <p> @concert.Genre</p>
+                                    <p>
+                                        <strong>
+                                            <em>@concert.Location - @concert.City,@concert.Country</em>
+                                        </strong>
+                                    </p>
+                                    <p>
+                                        From <em>@concert.StartDate.ToShortDateString()</em> To <em> @concert.EndDate.ToShortDateString()</em>
+                                    </p>
+                                </li>
+                            }
+                        </ul>
                     </div>
-                }
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            @foreach ( var concert in this.Model.Concerts.OrderBy( c => c.Name ).Skip( halfConcerts ) )
+                            {
+                                <li class="list-group-item" style="margin-bottom: 20px; background: black; border-color: goldenrod">
+                                    <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
+                                        <span style="font-size: @( concert.Name.Length >= 25 ? 15 : 20 )px">@concert.Name</span>
+                                    </a>
+                                    <p> @concert.Genre</p>
+                                    <p>
+                                        <strong>
+                                            <em>@concert.Location - @concert.City,@concert.Country</em>
+                                        </strong>
+                                    </p>
+                                    <p>
+                                        From <em>@concert.StartDate.ToShortDateString()</em> To <em> @concert.EndDate.ToShortDateString()</em>
+                                    </p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="col-md-1"></div>
+                </div>
             </div>
         }
     }

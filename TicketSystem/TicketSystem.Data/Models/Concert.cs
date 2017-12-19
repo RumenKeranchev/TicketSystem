@@ -54,5 +54,7 @@ namespace TicketSystem.Data.Models
         public List< Ticket > Tickets { get; set; } = new List< Ticket >();
 
         public List< BandConcert > Bands { get; set; } = new List< BandConcert >();
+
+        public List<Comment> Comments { get; set; }
     }
 }

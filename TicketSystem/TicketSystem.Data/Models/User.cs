@@ -9,5 +9,7 @@ namespace TicketSystem.Data.Models
         public string Name { get; set; }
 
         public List< Ticket > Tickets { get; set; } = new List< Ticket >();
+
+        public List< Comment > Comments { get; set; } = new List< Comment >();
     }
 }

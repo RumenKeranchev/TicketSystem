@@ -21,7 +21,7 @@ namespace TicketSystem.Web.Controllers
 
         public async Task< IActionResult > Index()
         {
-            var concerts = await this.concertService.GetPrevious();
+            var concerts = await this.concertService.GetPreviousAsync();
 
             return this.View( concerts );
         }

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CheckoutTicketServiceModel>
+
+@{
+    this.ViewBag.Title = "Checkout";
+    this.Layout = "_Layout";
+    var ids = string.Join( "%/%", this.Model.Where( t => t.IsPaid == false ).Select( t => t.Id ) );
+}
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<h2 class="text-center">@this.ViewData[ "Title" ]</h2>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <td>Order Id</td>
+                    <td>Concert Name</td>
+                    <td>Number Of Tickets</td>
+                    <td>Sum Per Concert</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( var ticket in this.Model )
+                {
+                    <tr>
+                        <td>@ticket.Id</td>
+                        <td>
+                            <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@ticket.ConcertId">@ticket.ConcertName</a>
+                        </td>
+                        <td>@ticket.Count</td>
+                        <td>$@ticket.TicketPrice</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h3>Total: $@this.Model.Sum( t => t.TicketPrice )</h3>
+        <hr noshade />
+        <form method="post" asp-area="" asp-controller="Users" asp-action="Finalize">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="number" step="0.01" name="Sum" id="Sum" placeholder="Enter Sum..." class="form-control" />
+                    <input type="hidden" value="@ids" name="Ids" id="Ids" />
+                </div>
+                <div class="col-md-8">
+                    <button type="submit"
+                            class="btn btn-info"
+                            id="load"
+                            data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order">
+                        Finalize Order
+                    </button>
+                    @*                    <input type="submit" value="Finalize" class="btn btn-info"/>*@
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<script>
+    $('#load ').on('click', function () {
+        var $this = $(this);
+        $this.button('loading');
+        setTimeout(function () {
+            $this.button('reset');
+        }, 1000);
+    });
+</script>
+
+@section Scripts {
+    @await Html.PartialAsync( "_ValidationScriptsPartial" )
+}

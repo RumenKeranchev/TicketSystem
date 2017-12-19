@@ -1,3 +1,2 @@
 Missing functionality:
-			8. Comments on concerts
 			9. Unit Tests
