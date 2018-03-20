@@ -62,7 +62,7 @@ namespace TicketSystem.Services.Organizer.Implementations
                 .Concerts
                 .Where( c => c.Id == id )
                 .ProjectTo< EditConcertServiceModel >()
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return concert;
         }
@@ -76,7 +76,7 @@ namespace TicketSystem.Services.Organizer.Implementations
 
             var concert = await this.db
                 .Concerts
-                .FirstOrDefaultAsync( c => c.Id == id );
+                .SingleOrDefaultAsync( c => c.Id == id );
 
             if ( concert == null )
             {
@@ -110,7 +110,7 @@ namespace TicketSystem.Services.Organizer.Implementations
                 return false;
             }
 
-            var concert = await this.db.Concerts.FirstOrDefaultAsync( c => c.Id == id );
+            var concert = await this.db.Concerts.SingleOrDefaultAsync( c => c.Id == id );
 
             if ( concert == null )
             {
@@ -130,7 +130,7 @@ namespace TicketSystem.Services.Organizer.Implementations
             {
                 foreach ( var band in bands )
                 {
-                    var bandToAdd = this.db.Bands.FirstOrDefault( b => b.Id == band );
+                    var bandToAdd = this.db.Bands.SingleOrDefault( b => b.Id == band );
 
                     result.Add( new BandConcert { BandId = bandToAdd.Id, Band = bandToAdd } );
                 }

@@ -26,7 +26,7 @@ namespace TicketSystem.Services.Normal.Implementation
                 .Concerts
                 .Where( c => c.Id == id )
                 .ProjectTo< ConcertListingServiceModel >()
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return concert;
         }

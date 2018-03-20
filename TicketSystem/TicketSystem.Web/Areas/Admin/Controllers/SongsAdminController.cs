@@ -22,45 +22,28 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             this.cache = cache;
         }
 
-        public async Task< IActionResult > Index( int page = 1 )
+        public async Task<IActionResult> Index( int page = 1 )
         {
-            var cacheSongs =
-                this.cache.Get< IEnumerable< SongListingServiceModel > >( CacheConstants.ListAllSongsAdmin );
-
-            if ( cacheSongs == null )
-            {
-                cacheSongs = await this.songService.AllAsync( page );
-                this.cache.Set( CacheConstants.ListAllSongsAdmin, cacheSongs );
-            }
-
-            var cacheNumberOfSongs = this.cache.Get< int >( CacheConstants.NumberOfSongsAdmin );
-
-            if ( cacheNumberOfSongs == 0 )
-            {
-                cacheNumberOfSongs = await this.songService.TotalAsync();
-                this.cache.Set( CacheConstants.NumberOfSongsAdmin, cacheNumberOfSongs );
-            }
-
-//            var songs = await this.songService.AllAsync( page );
-//            var nuberOfSongs = await this.songService.TotalAsync();
+            var songs = await this.songService.AllAsync( page );
+            var numberOfSongs = await this.songService.TotalAsync();
 
             return this.View( new IndexViewModel
             {
-                Songs = cacheSongs,
-                TotalSongs = cacheNumberOfSongs,
+                Songs = songs,
+                TotalSongs = numberOfSongs,
                 CurrentPage = page
             } );
         }
 
-        public async Task< IActionResult > Create()
+        public async Task<IActionResult> Create()
         {
             var bands = await this.songService.WithAlbumsAsync();
 
             return this.View( new CreateSongViewModel { Bands = bands } );
         }
 
-        [ HttpPost ]
-        public async Task< IActionResult > Create( CreateSongViewModel songModel )
+        [HttpPost]
+        public async Task<IActionResult> Create( CreateSongViewModel songModel )
         {
             if ( !this.ModelState.IsValid )
             {
@@ -82,7 +65,7 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             return this.RedirectToAction( nameof( this.Index ) );
         }
 
-        public async Task< IActionResult > Edit( int id )
+        public async Task<IActionResult> Edit( int id )
         {
             var song = await this.songService.GetByIdAsync( id );
 
@@ -101,8 +84,8 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             return this.View( new CreateSongViewModel { Song = song, Bands = bands } );
         }
 
-        [ HttpPost ]
-        public async Task< IActionResult > Edit( int id, CreateSongViewModel model )
+        [HttpPost]
+        public async Task<IActionResult> Edit( int id, CreateSongViewModel model )
         {
             if ( !this.ModelState.IsValid )
             {
@@ -119,7 +102,7 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             return this.RedirectToAction( nameof( this.Index ) );
         }
 
-        public async Task< IActionResult > Delete( int id )
+        public async Task<IActionResult> Delete( int id )
         {
             return this.View( new DeleteSongViewModel
             {
@@ -128,7 +111,7 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             } );
         }
 
-        public async Task< IActionResult > Destroy( DeleteSongViewModel deleteSong )
+        public async Task<IActionResult> Destroy( DeleteSongViewModel deleteSong )
         {
             if ( !this.ModelState.IsValid )
             {
@@ -140,7 +123,7 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             return this.RedirectToAction( nameof( this.Index ) );
         }
 
-        public async Task< IActionResult > CreateAlbum()
+        public async Task<IActionResult> CreateAlbum()
         {
             return this.View( new CreateAlbumViewModel
             {
@@ -148,8 +131,8 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
             } );
         }
 
-        [ HttpPost ]
-        public async Task< IActionResult > CreateAlbum( CreateAlbumViewModel albumView )
+        [HttpPost]
+        public async Task<IActionResult> CreateAlbum( CreateAlbumViewModel albumView )
         {
             if ( !this.ModelState.IsValid )
             {

@@ -36,7 +36,7 @@ namespace TicketSystem.Services.Normal.Implementation
                 .Bands
                 .Where( b => b.Id == id )
                 .ProjectTo< BandDetailsServiceModel >()
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return band;
         }
@@ -47,7 +47,7 @@ namespace TicketSystem.Services.Normal.Implementation
                 .Albums
                 .Where( a => a.Id == id )
                 .ProjectTo< DetailedAlbumListingServiceModel >()
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return album;
         }
@@ -58,7 +58,7 @@ namespace TicketSystem.Services.Normal.Implementation
                 .Albums
                 .Where( a => a.Songs.Any( s => s.Id == id ) )
                 .ProjectTo< DetailedAlbumListingServiceModel >()
-                .FirstOrDefault();
+                .SingleOrDefault();
 
             return album;
         }

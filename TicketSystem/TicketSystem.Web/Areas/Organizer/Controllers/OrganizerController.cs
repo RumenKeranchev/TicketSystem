@@ -15,7 +15,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
         {
             this.organizerService = organizerService;
         }
-
+        [Route( "organizer/" )]
         public async Task< IActionResult > Index()
         {
             var concerts = await this.organizerService.AllAsync();
@@ -23,6 +23,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
             return this.View( concerts );
         }
 
+        [Route( "organizer/create" )]
         public async Task< IActionResult > Create()
         {
             var bands = await this.organizerService.BandsAsync();
@@ -59,6 +60,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
             return this.RedirectToAction( nameof( this.Index ) );
         }
 
+        [Route( "organizer/edit/{id}" )]
         public async Task< IActionResult > Edit( int id )
         {
             var concert = await this.organizerService.GetForEditAsync( id );
@@ -89,6 +91,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
             return this.RedirectToAction( nameof( this.Index ) );
         }
 
+        [Route( "organizer/delete/{id}" )]
         public async Task< IActionResult > Delete( int id )
         {
             if ( id <= 0 )

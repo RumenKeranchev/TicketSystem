@@ -63,7 +63,7 @@ namespace TicketSystem.Services.Admin.Implementations
                 .Songs
                 .Where( s => s.Id == id )
                 .ProjectTo< CreateSongServiceModel >()
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return song;
         }
@@ -74,7 +74,7 @@ namespace TicketSystem.Services.Admin.Implementations
             {
                 return false;
             }
-            var song = await this.db.Songs.FirstOrDefaultAsync( s => s.Id == id );
+            var song = await this.db.Songs.SingleOrDefaultAsync( s => s.Id == id );
 
             if ( song == null )
             {
@@ -107,7 +107,7 @@ namespace TicketSystem.Services.Admin.Implementations
                 .Songs
                 .Where( s => s.Id == id )
                 .Select( s => s.Name )
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return songName;
         }
@@ -119,7 +119,7 @@ namespace TicketSystem.Services.Admin.Implementations
                 return false;
             }
 
-            var song = await this.db.Songs.FirstOrDefaultAsync( s => s.Id == id );
+            var song = await this.db.Songs.SingleOrDefaultAsync( s => s.Id == id );
 
             if ( song == null )
             {

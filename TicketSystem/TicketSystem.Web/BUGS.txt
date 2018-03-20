@@ -1,2 +1,20 @@
-Missing functionality:
-			9. Unit Tests
+change input fields for login and register to be with class Sharp
+register -> UserName to Username
+change image storing from urls to bin[]
+rework bands details html
+albumdetails html needs some work
+concertdetails needs some work
+login should redirect back 
+animated buttons
+rework the search box
+change timyMCE with quill
+empty shopping cart gives error
+checkout needs some work
+add more bands -> at least 4 in each letter
+add some fonts
+responsive design
+change landing page
+footer needs some work
+admin all songs pagination needs some work
+admin all songs add order by id,name,genre,band
+band details needs more info

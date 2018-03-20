@@ -246,13 +246,13 @@ namespace TicketSystem.Services.Normal.Implementation
 
             foreach ( var ticket in tickets )
             {
-                var ticketUpdated = await this.db.Tickets.FirstOrDefaultAsync( t => t.Id == ticket.Id );
+                var ticketUpdated = await this.db.Tickets.SingleOrDefaultAsync( t => t.Id == ticket.Id );
                 if ( ticketUpdated != null )
                 {
                     ticketUpdated.IsPaid = true;
                     this.db.Update( ticketUpdated );
 
-                    var concert = this.db.Concerts.FirstOrDefault( c => c.Id == ticketUpdated.ConcertId );
+                    var concert = this.db.Concerts.SingleOrDefault( c => c.Id == ticketUpdated.ConcertId );
                     concert.TicketsSold += ticketUpdated.Count;
 
                     this.db.Update( concert );
