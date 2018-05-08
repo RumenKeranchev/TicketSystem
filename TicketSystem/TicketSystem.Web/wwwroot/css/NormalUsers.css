@@ -1,85 +1,79 @@
 ﻿.nu-index {
-    background-image: url("/images/metal-page-background.jpg");
+    background-image: url("/images/Users/homeBackground.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     color: goldenrod
 }
 
-.nu-index h2 { color: cyan }
+    .nu-index h2 {
+        color: cyan
+    }
 
 .nu-index-img-prev {
     height: 200px !important;
     width: 150px !important
 }
 
-.FrontPage { background: rgba(0, 0, 0, 0.8); }
+.FrontPage {
+    background: rgba(0, 0, 0, 0.8);
+}
 
 .btn-normal {
     background: black;
     color: cyan;
 }
 
-.btn-normal:hover, .btn-normal:focus, .btn-normal:active, .btn-normal.active, .open > .dropdown-toggle.btn-normal {
-    background: rgb(50, 50, 50);
-    color: cyan;
+    .btn-normal:hover, .btn-normal:focus, .btn-normal:active, .btn-normal.active, .open > .dropdown-toggle.btn-normal {
+        background: rgb(50, 50, 50);
+        color: cyan;
+    }
+
+    .btn-normal:active, .btn-normal.active {
+        background: darkgray;
+        box-shadow: none;
+        color: cyan;
+    }
+
+.nav.navbar-nav.navbar-right li a {
+    color: goldenrod;
 }
 
-.btn-normal:active, .btn-normal.active {
-    background: darkgray;
-    box-shadow: none;
-    color: cyan;
+
+.nu-details-Title {
+    color: darkgoldenrod
 }
-
-.nav.navbar-nav.navbar-right li a { color: goldenrod; }
-
-.nu-Metal {
-    background: url("../images/Users/heavyMetalBgImg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: yellow
-}
-
-.nu-Metal h2 { color: cyan }
-
-.nu-Metal #detailBody { background: rgba(0, 0, 0, 0.8); }
-
-.nu-Rock {
-    background: url("../images/Users/rockBgImg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: yellow
-}
-
-.nu-Rock h2 { color: cyan }
-
-.nu-Rock #detailBody { background: rgba(0, 0, 0, 0.8); }
-
-.nu-House {
-    background: url("../images/Users/houseBgImg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: yellow
-}
-
-.nu-House h2 { color: cyan }
-
-.nu-House #detailBody { background: rgba(0, 0, 0, 0.8); }
-
-.nu-details-Title { color: darkgoldenrod }
 
 .nu-bands-Index {
     background: url("../images/Users/all-bands.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    color: cyan
 }
+
+    .nu-bands-Index h1, .nu-bands-Index h3 {
+        background: -webkit-linear-gradient(#eee, #333);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
 .nu-bands-ListBands {
     padding: 10px;
-    list-style: none
+    list-style: none;
+    background: black;
+    color: grey
 }
+
+    .nu-bands-ListBands:hover {
+        text-decoration: none;
+        cursor: pointer
+    }
+
+    .nu-bands-ListBands a {
+        color: goldenrod
+    }
+
+
 
 .nu-LoginRegister {
     background: url("../images/loginRegisterBackground.jpg");
@@ -103,7 +97,15 @@
     margin-bottom: 10px
 }
 
-.dropdown-menu > li > a:hover {
-    background: rgb(20, 20, 20) !important;
+.nav-item-custm {
+    background: black !important;
+}
+
+.dropdown:hover {
+    cursor: pointer
+}
+
+.nav-item-custm a:hover {
+    background: rgb(25, 25, 25) !important;
     background-image: none !important;
 }

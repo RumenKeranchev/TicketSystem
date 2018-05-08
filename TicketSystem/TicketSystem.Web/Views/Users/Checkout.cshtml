@@ -6,13 +6,14 @@
     var ids = string.Join( "%/%", this.Model.Where( t => t.IsPaid == false ).Select( t => t.Id ) );
 }
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script>
+    $("main").addClass("checkout");
+</script>
 
-<h2 class="text-center">@this.ViewData[ "Title" ]</h2>
+<h2 class="text-center pt-5 mb-5">@this.ViewData[ "Title" ]</h2>
 
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-8 offset-2">
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
@@ -56,7 +57,6 @@
             </div>
         </form>
     </div>
-    <div class="col-md-2"></div>
 </div>
 
 <script>

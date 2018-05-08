@@ -5,16 +5,15 @@
     Layout = "_Layout";
 }
 <script>
-    document.getElementById("body").className += " OrganizerCreateConcert";
+    $("body").addClass("OrganizerCreateConcert adm");
 </script>
 
 
-<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
+<h2 class="text-center pt-5 mb-5">@(this.ViewData[ "Title" ])</h2>
 
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6"style="background: rgba(10, 10, 10, 0.8); color: cyan; padding-top: 10px; padding-bottom: 20px">
-        <form method="post">
+<div class="row pb-5">
+    <div class="col-6 offset-3">
+        <form method="post" asp-controller="Organizer" asp-action="Create">
             <div class="form-group">
                 <label asp-for="@(this.Model.ConcertServiceModel.PosterUrl)"></label>
                 <input asp-for="@(this.Model.ConcertServiceModel.PosterUrl)" class="form-control Sharp" placeholder="Enter Song Name..."/>
@@ -26,7 +25,7 @@
                 <span asp-validation-for="@(this.Model.ConcertServiceModel.Name)" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@(this.Model.ConcertServiceModel.Genre)"></label> (Hold Ctrl to select multiple)
+                <label asp-for="@(this.Model.ConcertServiceModel.Genre)">Genre (Hold Ctrl to select multiple)</label> 
                 <select asp-for="@(this.Model.ConcertServiceModel.Genre)" class="form-control Sharp" multiple="multiple" style="height: 135px">
                     <option selected disabled>Select Genre...</option>
                     @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast< Genre >() )
@@ -91,7 +90,6 @@
             <input type="submit" value="Create Concert" class="btn btn-custom Sharp"/>
         </form>
     </div>
-    <div class="col-md-3"></div>
 </div>
 
 @section Scripts {

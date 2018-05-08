@@ -15,6 +15,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
         {
             this.organizerService = organizerService;
         }
+
         [Route( "organizer/" )]
         public async Task< IActionResult > Index()
         {
@@ -32,6 +33,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
         }
 
         [ HttpPost ]
+        [Route( "organizer/create" )]
         public async Task< IActionResult > Create( CreateConcertViewModel concertModel )
         {
             if ( concertModel.ConcertServiceModel.StartDate > concertModel.ConcertServiceModel.EndDate )
@@ -69,6 +71,7 @@ namespace TicketSystem.Web.Areas.Organizer.Controllers
         }
 
         [ HttpPost ]
+        [Route( "organizer/edit/{id}" )]
         public async Task< IActionResult > Edit( int id, EditConcertServiceModel editConcert )
         {
             if ( editConcert.StartDate > editConcert.EndDate )

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using TicketSystem.Services.Normal.Contracts;
@@ -19,7 +18,7 @@ namespace TicketSystem.Web.Controllers
             this.userService = userService;
         }
 
-        public async Task< IActionResult > Index()
+        public async Task<IActionResult> Index()
         {
             var concerts = await this.concertService.GetPreviousAsync();
 
@@ -34,7 +33,7 @@ namespace TicketSystem.Web.Controllers
             } );
         }
 
-        public async Task< IActionResult > Search( bool songs, bool albums, bool bands, bool concerts,
+        public async Task<IActionResult> Search( bool songs, bool albums, bool bands, bool concerts,
             string searchTerm )
         {
             if ( !this.ModelState.IsValid )
@@ -67,5 +66,6 @@ namespace TicketSystem.Web.Controllers
 
             return this.View( searchEverywhere );
         }
+
     }
 }

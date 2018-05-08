@@ -6,10 +6,11 @@
 }
 
 <script>
-    document.getElementById("body").className += "FormatImage ManageUsersAdmin "
+    $("body").addClass("ManageUsersAdmin adm");
+    $("main").addClass("pb-1");
 </script>
 
-<h2 style="text-shadow: 4px 4px 8px black">@(this.ViewData[ "Title" ])</h2>
+<h2 class="text-center pt-5 mb-5">@(this.ViewData[ "Title" ])</h2>
 
 <table class="table table-hover AllSongsAdminTable">
     <thead>

@@ -6,15 +6,14 @@
 }
 
 <script>
-    document.getElementById("body").className += " CreateAlbumsAdmin FormatImage";
+    $("body").addClass("CreateAlbumsAdmin adm");
 </script>
 
-<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
+<h2 class="text-center pt-5 mb-5">@(this.ViewData[ "Title" ])</h2>
 
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6" style="background-color: rgba(240, 230, 140, 0.7); color: darkblue">
-        <form method="post" style="padding-bottom: 10px">
+    <div class="col-6 offset-3">
+        <form method="post" class="py-2">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@(this.Model.Album.Name)"></label>
@@ -52,5 +51,4 @@
             <input type="submit" class="btn  btn-custom Sharp" value="Create Album"/>
         </form>
     </div>
-    <div class="col-md-3"></div>
 </div>

@@ -1,37 +1,36 @@
-﻿@model  IEnumerable< ListPreviousConcertsServiceModel > 
+﻿@model IEnumerable<ListPreviousConcertsServiceModel>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-
-@foreach ( var concert in this.Model.Take( 3 ) )
-{
-    var genre = "";
-    if ( concert.Genre.ToString().Length > 26 )
+<div class="row w-100 mb-4">
+    @foreach ( var concert in this.Model.Take( 3 ) )
     {
-        genre = concert.Genre.ToString().Substring( 0, 26 ) + ", ...";
-    }
-    else
-    {
-        genre = concert.Genre.ToString();
-    }
+        var genre = "";
+        if ( concert.Genre.ToString().Length > 20 )
+        {
+            genre = concert.Genre.ToString().Substring( 0, 20 ) + "...";
+        }
+        else
+        {
+            genre = concert.Genre.ToString();
+        }
 
-    <div class="col-md-4">
-        <div class="panel Sharp" style="background: black;">
+        <div class="col-lg-3 panel Sharp mx-auto my-4 p-3 text-center" style="background: black;">
             <div class="panel-heading">
                 <a asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">@concert.Name</a>
-                <p>Genre: @genre</p>
+                <p class="mb-0">Genres:</p>
+                <p>@genre</p>
             </div>
             <div class="panel-body">
-                <img class="img-responsive" src="@concert.Image" style="width: 100px;height: 100px"/>
+                <img class="img-responsive" src="@concert.Image" style="width: 100px;height: 100px" />
                 <p>Tickets Sold: @concert.TicketsSold</p>
-                Started on @concert.StartDate.ToShortDateString()
-                <br/>
-                Ended on @concert.EndDate.ToShortDateString()
+                <p class="mb-0">Started on @concert.StartDate.ToShortDateString()</p>
+                <p class="mb-0"> Ended on @concert.EndDate.ToShortDateString()</p>
             </div>
         </div>
-    </div>
-}
-<button class="btn btn-custom" style="margin-left: 15px; margin-bottom: 20px">Show More</button>
-<div id="toggleMore" hidden>
+    }
+</div>
+
+
+<div id="toggleMore" class="row w-100 mb-4" style="display: none">
     @foreach ( var concert in this.Model.Skip( 3 ) )
     {
         var genre = "";
@@ -44,33 +43,35 @@
             genre = concert.Genre.ToString();
         }
 
-        <div class="col-md-4">
-            <div class="panel Sharp" style="background: black;">
-                <div class="panel-heading">
-                    <a asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">@concert.Name</a>
-                    <p>Genre: @genre</p>
-                </div>
-                <div class="panel-body">
-                    <img class="img-responsive" src="@concert.Image" style="width: 100px;height: 100px"/>
-                    <p>Tickets Sold: @concert.TicketsSold</p>
-                    Started on @concert.StartDate.ToShortDateString()
-                    <br/>
-                    Ended on @concert.EndDate.ToShortDateString()
-                </div>
+        <div class="col-lg-3 panel Sharp mx-auto my-3 p-3 text-center" style="background: black;">
+            <div class="panel-heading">
+                <a asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">@concert.Name</a>
+                <p class="mb-0">Genres:</p>
+                <p>@genre</p>
+            </div>
+            <div class="panel-body">
+                <img class="img-responsive" src="@concert.Image" style="width: 100px;height: 100px" />
+                <p>Tickets Sold: @concert.TicketsSold</p>
+                <p class="mb-0">Started on @concert.StartDate.ToShortDateString()</p>
+                <p class="mb-0"> Ended on @concert.EndDate.ToShortDateString()</p>
             </div>
         </div>
     }
 </div>
+
+<div class="row w-75 mx-auto toggle-more-concerts mb-5">
+    <i class="fas fa-angle-double-down" id="toggleConcerts"></i>
+</div>
+
 <script>
-    $("button").click(function() {
-        var btn = $(this);
-        $("#toggleMore").toggle(300,
-            function() {
-                if ($(this).is(':visible')) {
-                    btn.text('Show Less');
-                } else {
-                    btn.text('Show More');
+    $(document).ready(function () {
+        $(".toggle-more-concerts").click(function () {
+            var btn = $(this);
+            $("div #toggleMore").toggle("slow",
+                function () {
+                    $("i#toggleConcerts").toggleClass("fas fa-angle-double-down fas fa-angle-double-up");
                 }
-            });
-    });
+            );
+        });
+    })
 </script>

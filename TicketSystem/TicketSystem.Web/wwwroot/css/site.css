@@ -1,50 +1,56 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
 }
-
-/* Wrapping element */
-
-/* Set some basic padding to keep content from hitting the edges */
 
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Carousel */
-
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
 
-.carousel-inner .item img[src$=".svg"] { width: 100%; }
+.carousel-indicators .active {
+    background: yellow;
+}
 
+#container {
+    background: rgba(0, 0, 0, 0.8);
+    padding-top: 1px;
+}
+
+.carousel-indicators li {
+    background-color: grey
+}
+
+.col-img {
+    width: 75%;
+    margin: 0 auto;
+    max-height: 500px;
+    display: block;
+}
 /* QR code generator */
-
-#qrCode { margin: 15px; }
-
-/* Hide/rearrange for smaller screens */
-
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption { display: none; }
+#qrCode {
+    margin: 15px;
 }
 
-.pagination li.disabled a { pointer-events: none; }
-
-.FormatImage {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+.pagination li.disabled a {
+    pointer-events: none;
 }
 
-.MetalFont { font-family: Copperplate, Copperplate Gothic Light, sans-serif !important; }
+.MetalFont {
+    font-family: Copperplate, Copperplate Gothic Light, sans-serif !important;
+}
 
-.Sharp { border-radius: 0; }
+.Sharp {
+    border-radius: 0 !important;
+}
 
 .OrganizerCreateConcert {
     background-image: url("../images/Organizer/Concerts/createConcertOrganizer.jpg");
@@ -53,8 +59,531 @@
     background-attachment: fixed;
 }
 
-.navbar a { color: goldenrod !important }
+    .OrganizerCreateConcert tr:hover td {
+        background: black
+    }
 
-.navbar ul { background: black; 
-             border-radius: 0px
+.navbar a {
+    color: goldenrod !important
+}
+
+.navbar ul {
+    background: black;
+    border-radius: 0px
+}
+
+form#search-form {
+    padding: .25rem 1.5rem;
+    color: #212529;
+    white-space: nowrap;
+}
+
+    form#search-form * {
+        border-radius: 0;
+        color: goldenrod;
+    }
+
+.form-check {
+    justify-content: flex-start !important;
+}
+
+button#search-btn {
+    background: none;
+    border: 1px solid goldenrod;
+}
+
+    button#search-btn:hover {
+        background: goldenrod;
+        border: 1px solid goldenrod;
+        color: black;
+    }
+
+#searchTerm {
+    background: none;
+    border: 1px solid wheat;
+    color: wheat !important;
+}
+
+    #searchTerm::placeholder {
+        color: wheat
+    }
+
+.form-control:focus {
+    box-shadow: none
+}
+
+.log-reg-form-inputs {
+    background: none;
+    border: none;
+    border-bottom: 2px solid goldenrod;
+    border-left: 2px solid goldenrod;
+}
+
+    .log-reg-form-inputs:focus {
+        background: none;
+        border-bottom: 2px solid goldenrod;
+        border-left: 2px solid goldenrod;
+    }
+
+    .log-reg-form-inputs::placeholder {
+        padding-left: 10px
+    }
+
+#login-form label {
+    position: relative;
+    left: -110px
+}
+
+#login-form .checkbox label {
+    position: initial
+}
+
+footer {
+    background: black;
+    display: flex;
+    justify-content: space-evenly;
+    color: goldenrod
+}
+
+    footer div {
+        width: 50%
+    }
+
+#footer-div-1 p {
+    margin: 0;
+    text-align: center;
+    padding: 3%
+}
+
+#footer-div-2 {
+    text-align: center;
+}
+
+    #footer-div-2 ul {
+        list-style: none;
+        margin: 0;
+        padding: 3%;
+    }
+
+        #footer-div-2 ul li {
+            display: inline-block;
+        }
+
+    #footer-div-2 a {
+        text-decoration: none;
+    }
+
+#facebook {
+    color: #4267B2;
+    padding: 10px 15px;
+    border-radius: 100%;
+    border: 2px solid #4267B2;
+}
+
+    #facebook:hover {
+        background: #4267B2;
+        color: black
+    }
+
+#twitter {
+    color: #3B94D9;
+    padding: 10px 12px;
+    border-radius: 100%;
+    border: 2px solid #3B94D9;
+}
+
+    #twitter:hover {
+        background: #3B94D9;
+        color: black
+    }
+
+#instagram {
+    color: #A03AA8;
+    padding: 10px 12px;
+    border-radius: 100%;
+    border: 2px solid #A03AA8;
+}
+
+    #instagram:hover {
+        background: #A03AA8;
+        color: black
+    }
+
+#reg-pg {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.5);
+    padding-bottom: 11%
+}
+
+#lg-pg {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.5);
+    padding-bottom: 6%
+}
+
+#toggle {
+    border-radius: 0;
+    background: #111
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid goldenrod;
+    margin-bottom: -2px
+}
+
+#bands-index {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#concerts-index {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
+}
+
+.concert-cell {
+    margin-bottom: 20px;
+    background: black;
+    border-color: goldenrod;
+    padding: 20px
+}
+
+#search-results-page {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
+}
+
+.search-result {
+    padding: 20px;
+    margin: 0 20px;
+    border: 1px solid goldenrod;
+    margin-bottom: 20px;
+    background: black;
+    text-align: center
+}
+
+#profile {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.6);
+    color: #cc5500;
+    padding-bottom: 20%
+}
+
+.profile {
+    background: url("../images/Users/profile-bg.jpg") center no-repeat;
+    background-size: cover
+}
+
+.prof-heading {
+    color: lightgray;
+    text-align: center
+}
+
+.profile-nav li {
+    list-style: none;
+}
+
+    .profile-nav li a {
+        text-decoration: none;
+        color: lightgray;
+        display: block;
+        padding: 10px;
+    }
+
+.profile-nav a:hover {
+    border-bottom: 2px solid #cc5500;
+    border-top: 2px solid #cc5500;
+    cursor: pointer;
+    text-align: center;
+}
+
+.prof-li-active {
+    background: #cc5500;
+    text-align: center;
+}
+
+#prof-layout {
+    height: 500px;
+}
+
+#logout {
+    color: goldenrod !important;
+    text-decoration: none
+}
+
+    #logout:hover {
+        border-radius: 0;
+        border-bottom: 2px solid goldenrod
+    }
+
+.navbar-brand {
+    background: linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent
+}
+
+.admin-panel {
+    background: url("../images/Admin/Songs/createSongBackground.jpg") center no-repeat;
+    background-size: cover;
+}
+
+    .admin-panel main {
+        min-height: 650px;
+    }
+
+h1.adm-pnl-hg {
+    padding: 50px;
+}
+
+.adm-pnl-hg {
+    background: linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px 0;
+}
+
+.adm-pnl-lk {
+    color: lightgray;
+    display: block;
+}
+
+    .adm-pnl-lk:hover {
+        text-decoration: none;
+        background: lightgray;
+        color: darkslategray
+    }
+
+.empty-cart {
+    background: url("../images/Users/emptyCart.jpg") center no-repeat;
+    background-size: cover
+}
+
+    .empty-cart main {
+        min-height: 650px
+    }
+
+    .empty-cart h1 {
+        margin-bottom: 0;
+        text-align: center;
+        padding: 25% 0;
+        font-weight: bold;
+        color: #777
+    }
+
+.album-cover {
+    width: 100%;
+    height: 150px;
+}
+
+.concert-cover {
+    width: 100%;
+    height: 250px;
+}
+
+.band-details-link {
+    color: #212529
+}
+
+    .band-details-link:hover {
+        font-weight: bolder;
+        color: black;
+        text-decoration: none
+    }
+
+
+.band-details {
+    background: url("../images/Users/bandDetailsBackground.jpg") center no-repeat;
+    background-size: cover;
+}
+
+    .band-details main {
+        background: #ffffff;
+        background: rgba(245, 245, 220, .3);
+    }
+
+.album-details {
+    background: url("../images/Users/albumDetailsBackground.jpg") center no-repeat;
+    background-size: cover;
+}
+
+    .album-details main {
+        background: #ffffff;
+        background: rgba(255, 250, 206, .5);
+        min-height: 650px;
+        padding-bottom: 1px
+    }
+
+#track-listing {
+    margin-bottom: 0;
+    background: #333333;
+    font-weight: bold;
+    color: rgb(255, 250, 206);
+    padding: 5px 0;
+    text-align: center
+}
+
+.track-list {
+    background: black;
+    color: rgb(255, 250, 206);
+}
+
+    .track-list h5:focus {
+        outline: none
+    }
+
+    .track-list h5 span.col-2 {
+        background: rgb(255, 250, 206);
+        color: black;
+        padding: 5px;
+        border-bottom: 1px solid black;
+    }
+
+    .track-list h5 span.col-10 {
+        padding: 5px;
+        border-bottom: 1px solid rgb(255, 250, 206);
+    }
+
+.youtube-song iframe {
+    width: 100%;
+}
+
+.concert-details {
+    background: url("../images/Users/concertDetailsBackground.jpg") center no-repeat;
+    background-size: cover;
+}
+
+    .concert-details main {
+        background: #ffface;
+        background: rgba(255, 250, 206, .9);
+    }
+
+.concert-details-title {
+    padding: 10px
+}
+
+    .concert-details-title span {
+        color: #5b5b5b;
+        font-weight: bold
+    }
+
+.concert-bands {
+    text-align: center
+}
+
+    .concert-bands a {
+        display: block;
+        color: black;
+        padding: 10px;
+    }
+
+        .concert-bands a:hover {
+            text-decoration: none;
+            color: rgb(255, 250, 206);
+            background: #5b5b5b;
+        }
+
+#concert-recording iframe {
+    width: 100%;
+    min-height: 315px;
+    height: 100%;
+}
+
+.concert-comments {
+    background: #5b5b5b;
+    color: goldenrod;
+    padding: 5px 25px;
+    margin: 5px 0
+}
+
+    .concert-comments div {
+        color: gold;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        border-bottom: 1px solid darkgrey
+    }
+
+.cart main {
+    min-height: 650px;
+    background: #000000;
+    background: rgba(0,0,0,.1)
+}
+
+.checkout {
+    min-height: 650px;
+}
+
+.concert-index {
+    color: grey;
+    margin-bottom: 0
+}
+
+    .concert-index thead {
+        color: lightgrey
+    }
+
+    .concert-index tbody tr td:first-of-type {
+        color: lightgrey
+    }
+
+    .concert-index tbody tr:hover td {
+        color: lightgrey
+    }
+
+.toggle-more-concerts {
+    justify-content: center;
+    background: #fff;
+    background: rgba(255, 255, 255,.1);
+}
+
+    .toggle-more-concerts:hover {
+        cursor: pointer;
+        background: #fff;
+        background: rgba(255, 255, 255,.2);
+    }
+
+    .toggle-more-concerts i {
+        font-size: 30px;
+        padding: 5px 0
+    }
+
+.main-header {
+    min-height: 300px;
+    background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url("../images/Logo.jpg") center no-repeat;
+    background-size: cover;
+    background-position-y: 20%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 50px
+}
+
+.main-header h1 {
+    padding-top: 120px
+}
+
+.main-header h1, .main-header p {
+    color: lightgrey
+}
+
+.error-page {
+    min-height: 650px
+}
+
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
 }

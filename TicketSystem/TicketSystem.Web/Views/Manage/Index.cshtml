@@ -1,12 +1,11 @@
-﻿@using TicketSystem.Web.Models.ManageViewModels
-@model IndexViewModel
+﻿@model IndexViewModel
 @{
-    ViewData["Title"] = "Profile";
-    ViewData.AddActivePage(ManageNavPages.Index);
+    ViewData[ "Title" ] = "Profile";
+    ViewData.AddActivePage( ManageNavPages.Index );
 }
 
-<h4>@ViewData["Title"]</h4>
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+<h4>@ViewData[ "Title" ]</h4>
+@Html.Partial( "_StatusMessage", Model.StatusMessage )
 <div class="row">
     <div class="col-md-6">
         <form method="post">
@@ -17,11 +16,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control"/>
+                <input asp-for="Name" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                @if (Model.IsEmailConfirmed)
+                @if ( Model.IsEmailConfirmed )
                 {
                     <div class="input-group">
                         <input asp-for="Email" class="form-control" />
@@ -45,6 +44,10 @@
     </div>
 </div>
 
+<script>
+    $("#prof").addClass("prof-li-active");
+</script>
+
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync( "_ValidationScriptsPartial" )
 }

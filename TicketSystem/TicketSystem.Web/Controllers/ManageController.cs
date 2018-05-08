@@ -56,6 +56,7 @@ namespace TicketSystem.Web.Controllers
             var model = new IndexViewModel
             {
                 Username = user.UserName,
+                Name = user.Name,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,

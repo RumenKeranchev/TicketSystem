@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using TicketSystem.Common.Contstants;
 using TicketSystem.Services.Admin.Contracts;
-using TicketSystem.Services.Admin.Models.SongsServiceModels;
 using TicketSystem.Web.Areas.Admin.Models.AlbumsViewModels;
 using TicketSystem.Web.Areas.Admin.Models.SongsViewModels;
 
@@ -14,16 +9,19 @@ namespace TicketSystem.Web.Areas.Admin.Controllers
     public class SongsAdminController : BaseAdminController
     {
         private readonly IAdminSongService songService;
-        private readonly IMemoryCache cache;
 
-        public SongsAdminController( IAdminSongService songService, IMemoryCache cache )
+        public SongsAdminController( IAdminSongService songService)
         {
             this.songService = songService;
-            this.cache = cache;
         }
 
         public async Task<IActionResult> Index( int page = 1 )
         {
+            if ( page <= 0 )
+            {
+                page = 1;
+            }
+
             var songs = await this.songService.AllAsync( page );
             var numberOfSongs = await this.songService.TotalAsync();
 

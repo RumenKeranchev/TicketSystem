@@ -1,4 +1,4 @@
-﻿@model  IEnumerable< ListAllConcertsServiceModel > 
+﻿@model IEnumerable<ListAllConcertsServiceModel>
 
 @{
     ViewBag.Title = "All Concerts";
@@ -6,38 +6,41 @@
 }
 
 <script>
-    document.getElementById("body").className += " OrganizerCreateConcert";
+    $("body").addClass("OrganizerCreateConcert adm");
+    $("main").addClass("pb-1 px-0");
 </script>
 
-<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
+<h2 class="text-center pt-5 mb-5">@(this.ViewData[ "Title" ])</h2>
 
-<table class="table table-hover AllSongsAdminTable" style="color: cyan">
+<table class="table table-responsive table-hover concert-index">
     <thead style="background: black">
-    <tr>
-        <th>Id</th>
-        <th class="text-center">Name</th>
-        <th class="text-center">Genre</th>
-        <th class="text-center">Country</th>
-        <th class="text-center">City</th>
-        <th class="text-center">№ Bands</th>
-        <th class="text-center">Actions</th>
-    </tr>
+        <tr>
+            <th class="text-center">Id</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Genre</th>
+            <th class="text-center">Country</th>
+            <th class="text-center">City</th>
+            <th class="text-center" width="13%">№ Bands</th>
+            <th class="text-center">Actions</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach ( var concert in this.Model )
-    {
-        <tr>
-            <td style="background: black">@concert.Id</td>
-            <td>@concert.Name</td>
-            <td>@concert.Genre.ToString()</td>
-            <td class="text-center">@concert.Country</td>
-            <td class="text-center">@concert.City</td>
-            <td class="text-center">@concert.NumberOfBandsPlaying</td>
-            <td>
-                <a asp-area="Organizer" asp-controller="Organizer" asp-action="Edit" asp-route-id="@concert.Id" class="btn btn-sm btn-warning Sharp">Edit</a>
-                <a asp-area="Organizer" asp-controller="Organizer" asp-action="Delete" asp-route-id="@concert.Id"  class=" btn btn-sm btn-danger Sharp">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach ( var concert in this.Model )
+        {
+            <tr>
+                <td style="background: black">@concert.Id</td>
+                <td>@concert.Name</td>
+                <td>@concert.Genre.ToString()</td>
+                <td class="text-center">@concert.Country</td>
+                <td class="text-center">@concert.City</td>
+                <td class="text-center">@concert.NumberOfBandsPlaying</td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-area="Organizer" asp-controller="Organizer" asp-action="Edit" asp-route-id="@concert.Id" class="btn btn-warning Sharp">Edit</a>
+                        <a asp-area="Organizer" asp-controller="Organizer" asp-action="Delete" asp-route-id="@concert.Id" class=" btn btn-danger Sharp">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

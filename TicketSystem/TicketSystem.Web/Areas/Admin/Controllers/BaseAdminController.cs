@@ -4,9 +4,13 @@ using TicketSystem.Common.Contstants;
 
 namespace TicketSystem.Web.Areas.Admin.Controllers
 {
-    [ Authorize( Roles = WebConstants.AdminRole ) ]
-    [ Area( WebConstants.AdminArea ) ]
+    [Authorize( Roles = WebConstants.AdminRole )]
+    [Area( WebConstants.AdminArea )]
     public abstract class BaseAdminController : Controller
     {
+        public IActionResult AdminPanel()
+        {
+            return this.View( "AdminPage" );
+        }
     }
 }

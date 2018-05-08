@@ -7,26 +7,23 @@
 }
 
 <script>
-    document.getElementById("body").className += " nu-bands-Index";
+    $("body").addClass(" nu-bands-Index");
+    $('main').removeAttr('id');
 </script>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<section id="bands-index">
 
-
-<div class="row" style="background: rgba(0, 0, 0, 0.4)">
-
-    <h1 class="text-center">@( this.ViewData[ "Title" ] )</h1>
-    <ul class="list-group">
+    <h1 class="text-center w-100">@( this.ViewData[ "Title" ] )</h1>
         @foreach ( var band in bands.OrderBy( b => b.Key ) )
         {
-            <div class="col-md-4" style="margin-bottom: 15px">
-                <ul>
+            <article class="col-lg-4" style="margin-bottom: 15px">
+                
                     <h3>@band.Key</h3>
                     @foreach ( var b in band.OrderBy( bnd => bnd.Name ) )
                     {
                         <div class="toggler">
-                            <li class="nu-bands-ListBands" style="background: black" id="@b.Id"><a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@b.Id">@b.Name</a> - @b.Genre</li>
-                            <li class="row " style="display: none; list-style: none" id="@b.Id-album">
+                            <div class="nu-bands-ListBands" id="@b.Id"><a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@b.Id">@b.Name</a> - @b.Genre</div>
+                            <div class="row justify-content-around " style="display: none; list-style: none" id="@b.Id-album">
                                 @foreach ( var album in b.Albums )
                                 {
                                     <div class="col-md-3">
@@ -35,19 +32,17 @@
                                         </a>
                                     </div>
                                 }
-                            </li>
+                            </div>
                         </div>
                     }
-                </ul>
-            </div>
+            </article>
         }
-    </ul>
-</div>
+</section>
 
 <script>
     $(document).ready(function() {
-        $(".toggler li").click(function(event) {
-            $("#" + event.target.id + "-album").toggle(200);
+        $(".toggler").click(function(event) {
+            $("#" + event.target.id + "-album").slideToggle(300);
         });
     });
 </script>

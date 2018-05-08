@@ -1,4 +1,4 @@
-﻿@model  IEnumerable< IndexConcertsServiceModel > 
+﻿@model IEnumerable<IndexConcertsServiceModel>
 
 @{
     ViewBag.Title = "Concerts";
@@ -6,77 +6,34 @@
     var half = this.Model.Count() / 2;
 }
 <script>
-    document.getElementById("body").className += " nu-Search";
+    $("body").addClass(" nu-Search");
+    $('main').removeAttr('id');
 </script>
 
-<div class="row" style="background: rgba(0, 0, 0, 0.8)">
-    <h2 class="text-center">@this.ViewData[ "Title" ]</h2>
-
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <ul class="list-group">
-                @foreach ( var concert in this.Model.OrderBy( c => c.Name ).Take( half ) )
+<section id="concerts-index">
+    <h2 class="text-center w-100 my-5">@this.ViewData[ "Title" ]</h2>
+    @foreach ( var concert in this.Model.OrderBy( c => c.Name ) )
+    {
+        <article class="col-lg-5 concert-cell">
+            <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
+                <span style="font-size: 20px">@concert.Name</span>
+                -
+                @if ( concert.EndDate < DateTime.UtcNow.Date )
                 {
-                    <li class="list-group-item" style="margin-bottom: 20px; background: black;border-color: goldenrod">
-                        <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
-                            <span style="font-size: 20px">@concert.Name</span>
-                        </a> -
-                        @if ( concert.EndDate < DateTime.UtcNow.Date )
-                        {
-                            <span style="color: crimson">Passed</span>
-                        }
-                        else
-                        {
-                            <span style="color: greenyellow">Upcoming</span>
-                        }
-                        <p>
-                            From <strong>
-                                <em>@concert.StartDate.ToShortDateString()</em>
-                            </strong> To <strong>
-                                <em>@concert.EndDate.ToShortDateString()</em>
-                            </strong>
-                        </p>
-                        <p>
-                            At <em><strong>@concert.Location</strong> - @concert.City,@concert.Country</em>
-                        </p>
-                        <p>Genre: @concert.Genre.ToString()</p>
-                    </li>
+                    <span style="color: crimson">Passed</span>
                 }
-            </ul>
-        </div>
-        <div class="col-md-5">
-            <ul class="list-group">
-                @foreach ( var concert in this.Model.OrderBy( c => c.Name ).Skip( half ) )
+                else
                 {
-                    <li class="list-group-item" style="margin-bottom: 20px; background: black;border-color: goldenrod">
-                        <a asp-area="" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">
-                            <span style="font-size: 20px">@concert.Name</span>
-                        </a> -
-                        @if ( concert.EndDate < DateTime.UtcNow.Date )
-                        {
-                            <span style="color: crimson">Passed</span>
-                        }
-                        else
-                        {
-                            <span style="color: greenyellow">Upcoming</span>
-                        }
-                        <p>
-                            From <strong>
-                                <em>@concert.StartDate.ToShortDateString()</em>
-                            </strong> To <strong>
-                                <em>@concert.EndDate.ToShortDateString()</em>
-                            </strong>
-                        </p>
-                        <p>
-                            At <em><strong>@concert.Location</strong> - @concert.City,@concert.Country</em>
-                        </p>
-                        <p>Genre: @concert.Genre.ToString()</p>
-                    </li>
+                    <span style="color: greenyellow">Upcoming</span>
                 }
-            </ul>
-        </div>
-
-        <div class="col-md-1"></div>
-    </div>
-</div>
+            </a>
+            <p>
+                <strong>@concert.StartDate.ToShortDateString()</strong> &mdash; <strong>@concert.EndDate.ToShortDateString()</strong>
+            </p>
+            <p>
+                <em><strong>@concert.Location</strong> &mdash;  @concert.City,@concert.Country</em>
+            </p>
+            <p>Genre: @concert.Genre.ToString()</p>
+        </article>
+    }
+</section>

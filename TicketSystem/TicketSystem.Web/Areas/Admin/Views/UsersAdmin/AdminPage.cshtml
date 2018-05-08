@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Administration";
+    Layout = "_Layout";
+}
+
+<h1 class="text-center adm-pnl-hg">Administration</h1>
+
+<section class="row">
+    
+    <article class="col-lg-4 text-center">
+        <h4 class="adm-pnl-hg">Songs</h4>
+        <div>
+            <a class="adm-pnl-lk" asp-area="Admin" asp-controller="SongsAdmin" asp-action="Index">All Songs</a>
+            <a class="adm-pnl-lk" asp-area="Admin" asp-controller="SongsAdmin" asp-action="Create">Create Song</a>
+            <a class="adm-pnl-lk" asp-area="Admin" asp-controller="SongsAdmin" asp-action="CreateAlbum">Create Album</a>
+            <a class="adm-pnl-lk" asp-area="Admin" asp-controller="BandsAdmin" asp-action="Create">Create Band</a>
+        </div>
+    </article>
+
+    <article class="col-lg-4 text-center">
+        <h4 class="adm-pnl-hg">Concerts</h4>
+        <div>
+            <a asp-area="Organizer" class="adm-pnl-lk" asp-controller="Organizer" asp-action="Create">Create Concert</a>
+            <a asp-area="Organizer" class="adm-pnl-lk" asp-controller="Organizer" asp-action="Index">All Concerts</a>
+        </div>                                               
+    </article>                                              
+
+    <article class="col-lg-4 text-center">
+        <h4 class="adm-pnl-hg">Users</h4>
+        <a asp-area="Admin" class="adm-pnl-lk" asp-controller="UsersAdmin" asp-action="Index">Manage Users</a>
+    </article>
+</section>
+
+<script>
+    $("body").addClass("admin-panel");
+    $("main").attr("id","container");
+</script>
+

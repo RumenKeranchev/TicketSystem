@@ -1,41 +1,39 @@
 ﻿@using TicketSystem.Web.Areas.Admin.Models.BandsViewModels
-@model  CreateBandViewModel 
+@model CreateBandViewModel
 
 @{
     this.ViewBag.Title = "Create Band";
     this.Layout = "_Layout";
 }
 <script>
-    document.getElementById("body").className += " CreateBandsAdmin FormatImage";
+    $("body").addClass("CreateBandsAdmin adm");
 </script>
 
-<h2 class="text-center">@(this.ViewData[ "Title" ])</h2>
+<h2 class="text-center pt-5 mb-5">@(this.ViewData[ "Title" ])</h2>
 
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6" style="background-color: rgba(30,30,30,0.7)">
-        <form method="post" style="padding-bottom: 10px">
+    <div class="col-6 offset-3">
+        <form method="post" class="py-2">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control Sharp"/>
+                <input asp-for="Name" class="form-control Sharp" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Genre"></label>
                 <select asp-for="Genre" class="form-control Sharp">
                     <option selected disabled>Select Genre...</option>
-                    @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast< Genre >() )
+                    @foreach ( var enumValue in Enum.GetValues( typeof( Genre ) ).Cast<Genre>() )
                     {
                         <option value="@( ( int ) enumValue )">@enumValue</option>
                     }
                 </select>
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
-            <input type="submit" class="btn btn-custom Sharp" value="Create Band"/>
+            <input type="submit" class="btn btn-custom Sharp" value="Create Band" />
         </form>
     </div>
-    <div class="col-md-3"></div>
 </div>
 
 

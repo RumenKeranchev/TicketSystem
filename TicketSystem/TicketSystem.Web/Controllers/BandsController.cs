@@ -5,7 +5,6 @@ using Microsoft.Extensions.Caching.Memory;
 using TicketSystem.Common.Contstants;
 using TicketSystem.Services.Normal.Contracts;
 using TicketSystem.Services.Normal.Models.Bands;
-using TicketSystem.Services.Normal.Models.Bands.Albums;
 
 namespace TicketSystem.Web.Controllers
 {
@@ -22,13 +21,8 @@ namespace TicketSystem.Web.Controllers
 
         public async Task< IActionResult > Index()
         {
-            var value = this.cache.Get< IEnumerable< AllBandsServiceModel > >( CacheConstants.AllBandsKey );
+            var value =  await this.bandService.AllAsync();
 
-            if ( value == null )
-            {
-                value = await this.bandService.AllAsync();
-                this.cache.Set( CacheConstants.AllBandsKey, value );
-            }
             return this.View( value );
         }
 
@@ -43,13 +37,7 @@ namespace TicketSystem.Web.Controllers
             {
                 return this.BadRequest();
             }
-            var value = this.cache.Get< BandDetailsServiceModel >( CacheConstants.BandDetailsKey );
-
-            if ( value == null )
-            {
-                value = await this.bandService.DetailsAsync( id );
-                this.cache.Set( CacheConstants.BandDetailsKey, value );
-            }
+            var value = await this.bandService.DetailsAsync( id );
 
             return this.View( value );
         }

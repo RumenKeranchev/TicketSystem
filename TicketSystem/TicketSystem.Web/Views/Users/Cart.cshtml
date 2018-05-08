@@ -5,8 +5,10 @@
     this.Layout = "_Layout";
     var ticketsIds = string.Join( "%/%", this.Model.Where( t => t.IsPaid == false ).Select( t => t.Id ) );
 }
-
-<h2>@this.ViewData[ "Title" ]</h2>
+<script>
+    $("body").addClass("cart")
+</script>
+<h2 class="pt-5 mb-5 text-center">@this.ViewData[ "Title" ]</h2>
 
 <div class="row">
     <table class="table table-hover">

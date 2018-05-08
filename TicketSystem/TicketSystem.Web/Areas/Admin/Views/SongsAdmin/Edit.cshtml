@@ -1,19 +1,17 @@
-﻿@using TicketSystem.Web.Areas.Admin.Models.SongsViewModels
-@model CreateSongViewModel 
+﻿@model CreateSongViewModel 
 
 @{
     ViewBag.Title = "Edit Song";
     Layout = "_Layout";
 }
 <script>
-    document.getElementById("body").className += " EditSongsAdmin FormatImage";
+    $("body").addClass("EditSongsAdmin adm");
 </script>
 
-<h2>Edit Song</h2>
+<h2 class="text-center pt-5 mb-5">Edit Song</h2>
 
-<div class="row ">
-    <div class="col-md-6">
-
+<div class="row">
+    <div class="col-6 offset-3">
         <form method="post">
             <div class="form-group">
                 <label asp-for="@(this.Model.Song.Name)"></label>

@@ -38,13 +38,13 @@ namespace TicketSystem.Web
                 .AddEntityFrameworkStores< TicketSystemDbContext >()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication().AddFacebook( facebookOptions =>
-            {
-                facebookOptions.AppId = this.Configuration[ "Authentication:Facebook:AppId" ];
-                facebookOptions.AppSecret = this.Configuration[ "Authentication:Facebook:AppSecret" ];
-            } );
-
-            services.Configure< MvcOptions >( options => { options.Filters.Add( new RequireHttpsAttribute() ); } );
+//            services.AddAuthentication().AddFacebook( facebookOptions =>
+//            {
+//                facebookOptions.AppId = this.Configuration[ "Authentication:Facebook:AppId" ];
+//                facebookOptions.AppSecret = this.Configuration[ "Authentication:Facebook:AppSecret" ];
+//            } );
+//
+//            services.Configure< MvcOptions >( options => { options.Filters.Add( new RequireHttpsAttribute() ); } );
 
             services.AddTransient< IEmailSender, EmailSender >();
 
@@ -64,16 +64,16 @@ namespace TicketSystem.Web
         {
             app.UseDatabaseMigration();
 
-            if ( env.IsDevelopment() )
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
+//            if ( env.IsDevelopment() )
+//            {
+//                app.UseDeveloperExceptionPage();
+//                app.UseBrowserLink();
+//                app.UseDatabaseErrorPage();
+//            }
+//            else
+//            {
                 app.UseExceptionHandler( "/Home/Error" );
-            }
+//            }
 
             app.UseStaticFiles();
 
@@ -81,6 +81,10 @@ namespace TicketSystem.Web
 
             app.UseMvc( routes =>
             {
+                routes.MapRoute(
+                    name: "search",
+                    template: "{area:exists}/{controller=Home}/{action=Search}"
+                );
                 routes.MapRoute(
                     name: "areas",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

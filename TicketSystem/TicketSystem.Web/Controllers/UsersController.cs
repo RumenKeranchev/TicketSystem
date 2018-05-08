@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ganss.XSS;
-using TicketSystem.Common.Contstants;
 using TicketSystem.Data.Models;
 using TicketSystem.Services.Normal.Contracts;
 using TicketSystem.Services.Normal.Models.Users;
@@ -33,7 +31,7 @@ namespace TicketSystem.Web.Controllers
 
             if ( !tickets.Any() )
             {
-                return this.BadRequest();
+                return this.View("EmptyCart");
             }
 
             return this.View( tickets );

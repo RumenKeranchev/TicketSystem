@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TicketSystem.Services.Admin.Contracts;
-using TicketSystem.Web.Areas.Admin.Models;
 using TicketSystem.Web.Areas.Admin.Models.BandsViewModels;
 
 namespace TicketSystem.Web.Areas.Admin.Controllers

@@ -1,136 +1,157 @@
-﻿@model  ConcertDetailsViewModel 
+﻿@model ConcertDetailsViewModel
 
 @{
     this.ViewBag.Title = this.Model.Concert.Name;
     this.Layout = "_Layout";
 }
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-<script>tinymce.init({ selector: 'textarea' });</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 <script>
-    document.getElementById("body").className += " nu-House";
+    $("body").addClass("concert-details");
 </script>
 
-<div class="row" id="detailBody">
-    <div class="row" style="margin-bottom: 20px; margin-left: 15px">
-        <h2>
-            @( this.ViewData[ "Title" ] ) - @if ( this.Model.Concert.EndDate.Date < DateTime.UtcNow.Date )
-                                            {
-                                                <span style="color: crimson">Passed</span>
-                                            }
-                                            else
-                                            {
-                                                <span style="color: greenyellow">Upcoming</span>
-                                            }
-        </h2>
-        <h4 style="margin-bottom: 40px; margin-left: 15px">Duration: @( ( int ) ( this.Model.Concert.EndDate - this.Model.Concert.StartDate ).TotalDays ) Day(s) from @( this.Model.Concert.StartDate.ToShortDateString() ) to @( this.Model.Concert.EndDate.ToShortDateString() )</h4>
+<header class="pt-5 mb-5">
+    <h2 class="text-center">
+        @( this.ViewData[ "Title" ] ) - @if ( this.Model.Concert.EndDate.Date < DateTime.UtcNow.Date )
+        {
+            <span style="color: crimson">Passed</span>
+        }
+        else
+        {
+            <span style="color: greenyellow">Upcoming</span>
+        }
+    </h2>
+    <p class="text-center"> @( this.Model.Concert.StartDate.ToShortDateString() ) &mdash; @( this.Model.Concert.EndDate.ToShortDateString() )</p>
+</header>
 
+<div class="row mb-5">
+    <div class="col-8">
+        <div class="concert-details-title">
+            <span>The concert took place in:</span>
+            @( this.Model.Concert.Location ) - @( this.Model.Concert.City ) - @( this.Model.Concert.Country )
+        </div>
+        <div class="concert-details-title">
+            <span>Genres:</span> @( this.Model.Concert.Genre )
+        </div>
+        <div class="concert-details-title">
+            <span>Tickets Sold:</span>
+            @( this.Model.Concert.TicketsSold )/@( this.Model.Concert.MaxNumberOfTickets )
+        </div>
+        <div class="concert-details-title">
+            <span>Perforing Bands:</span>
+            <div class="row justify-content-around">
 
-        <div class="col-md-8">
-            <p>
-                <span class="nu-details-Title">The concert took place in</span> <strong>
-                    <em>@( this.Model.Concert.Location ) - @( this.Model.Concert.City ) - @( this.Model.Concert.Country )</em>
-                </strong>
-            </p>
-            <p>
-                <span class="nu-details-Title">Genre:</span> @( this.Model.Concert.Genre )
-            </p>
-            <p>
-                <span class="nu-details-Title">Tickets Sold:</span> @( this.Model.Concert.TicketsSold )/@( this.Model.Concert.MaxNumberOfTickets )
-            </p>
-            <h5>
-                <span class="nu-details-Title">Perforing Bands:</span>
-            </h5>
-            <div class="row">
-                <ul style="list-style: none">
-                    @for ( int i = 0 ; i < this.Model.Concert.Bands.Count() ; i += 3 )
-                    {
-                        var result = this.Model.Concert.Bands.Skip( i ).Take( 3 );
-                        <div class="col-md-3">
-                            @foreach ( var res in result )
-                            {
-                                <li>
-                                    <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@res.Id">@res.Name</a>
-                                </li>
-                            }
-                        </div>
-                    }
-                </ul>
-            </div>
-            <br/>
-            <div class="row">
-                <span class="nu-details-Title" style="margin-left: 15px">Recording: </span>
-                @if ( this.Model.Concert.StreamUrl == null )
+                @for ( int i = 0; i < this.Model.Concert.Bands.Count(); i += 3 )
                 {
-                    @:No recordings yet...
-                }
-                else
-                {
-                    <div style="margin-left: 300px">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/@( this.Model.Concert.StreamUrl )" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                    var result = this.Model.Concert.Bands.Skip( i ).Take( 3 );
+                    <div class="col-3">
+                        @foreach ( var res in result )
+                        {
+                            <div class="concert-bands">
+                                <a asp-area="" asp-controller="Bands" asp-action="Details" asp-route-id="@res.Id">@res.Name</a>
+                            </div>
+                        }
                     </div>
                 }
-
             </div>
         </div>
-        <div class="col-md-4">
-            <img src="@( this.Model.Concert.PosterUrl )" style="width: 300px; height: 200px"/>
-            <h3>Ticket Price: $@this.Model.Concert.TicketPrice</h3>
+        <div class="concert-details-title">
+            <span>Recording: </span>
+            @if ( this.Model.Concert.StreamUrl == null )
+            {
+                @:No recordings yet...
+            }
+            else
+            {
+                <div id="concert-recording">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@( this.Model.Concert.StreamUrl )" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
+            }
+
         </div>
     </div>
-    @if ( this.Model.Concert.EndDate > DateTime.UtcNow && this.User.Identity.IsAuthenticated )
-    {
-        <div class="row" style="margin-left: 15px">
-            <div class="col-md-3">
-                <form method="post" asp-area="" asp-controller="Users" asp-action="AddToCart">
-                    <input type="hidden" value="@this.Model.Concert.Id" name="ConcertId"/>
-                    <div class="form-group">
-                        <label for="Count">Number Of Tickets</label>
-                        <input asp-for="@this.Model.BookTicket.Count" class="form-control" name="Count" id="Count" min="1"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="TicketPrice">Sum</label>
-                        <input asp-for="@this.Model.BookTicket.TicketPrice" readonly name="TicketPrice" id="TicketPrice" class="form-control" value="" style="background: rgb(220, 220, 220)"/>
-                    </div>
-                    <input type="submit" value="Book a Ticket" class="btn btn-success Sharp"/>
-                </form>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 50px; margin-left: 15px">
-            <form method="post" asp-area="" asp-controller="Users" asp-action="Comment">
-                <div class="col-md-6">
-                    <textarea asp-for="@this.Model.Comment.Content" id="Content" name="Content" class="form-control Sharp" placeholder="Enter Comment..."></textarea>
-                    <input type="hidden" value="@this.Model.Concert.Id" name="ConcertId"/>
-                    <input type="submit" value="Comment" class="btn btn-default Sharp"/>
-                </div>
-            </form>
-        </div>
-    }
-    else
-    {
-        <div class="row" style="margin-left: 30px">
-            <h4>To book tickets or comment you must be <a asp-area="" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@this.Context.Request.Path">registered</a>.<br/>If you already have an account please click <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@this.Context.Request.Path">here</a> to login.</h4>
-        </div>
-    }
-    <div class="row" style="margin-top: 50px">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h4 style="color: crimson">Comments ( @this.Model.Comments.Count() ):</h4>
-            <ul >
-                @foreach ( var comment in this.Model.Comments )
-                {
-                    <li class="list-group-item nu-Concert-Comments"><span style="color: cyan">@comment.Name:</span> @this.Html.Raw( comment.Content )</li>
-                }
-            </ul>
-        </div>
-        <div class="col-md-3"></div>
+    <div class="col-4">
+        <img src="@( this.Model.Concert.PosterUrl )" style="width: 300px; height: 200px" />
+        <h3>Ticket Price: $@this.Model.Concert.TicketPrice</h3>
     </div>
 </div>
 
+@if ( this.User.Identity.IsAuthenticated )
+{
+    if ( this.Model.Concert.EndDate > DateTime.UtcNow )
+    {
+        <div class="row">
+            <div class="col-4 offset-8">
+                <form method="post" asp-area="" asp-controller="Users" asp-action="AddToCart">
+                    <input type="hidden" value="@this.Model.Concert.Id" name="ConcertId" />
+                    <div class="form-group">
+                        <label for="Count">Number Of Tickets</label>
+                        <input asp-for="@this.Model.BookTicket.Count" class="form-control" name="Count" id="Count" min="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="TicketPrice">Sum</label>
+                        <input asp-for="@this.Model.BookTicket.TicketPrice" readonly name="TicketPrice" id="TicketPrice" class="form-control" value="" style="background: rgb(220, 220, 220)" />
+                    </div>
+                    <input type="submit" value="Book a Ticket" class="btn btn-success Sharp" />
+                </form>
+            </div>
+        </div>
+    }
+
+    <div class="mt-5">
+        <form method="post" asp-area="" asp-controller="Users" asp-action="Comment">
+            <div>
+                <textarea asp-for="@this.Model.Comment.Content" id="Content" name="Content" class="form-control Sharp" placeholder="Enter Comment..."></textarea>
+                <input type="hidden" value="@this.Model.Concert.Id" name="ConcertId" />
+                <input type="submit" value="Comment" class="btn btn-default Sharp" />
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <div>
+        <p class="font-weight-bold">
+            To book tickets or comment you must be
+            <a asp-area="" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@this.Context.Request.Path">registered</a>
+        </p>
+        <p class="font-weight-bold">
+            If you already have an account please click <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@this.Context.Request.Path">here</a> to login.
+        </p>
+    </div>
+}
+<div class="row" style="margin-top: 50px">
+    <div class="col-10 offset-1">
+        <h4 class="text-center" style="color: crimson">Comments ( @this.Model.Comments.Count() ):</h4>
+        @foreach ( var comment in this.Model.Comments )
+        {
+            <div class="concert-comments"><div>@comment.Name:</div> @this.Html.Raw( comment.Content )</div>
+        }
+    </div>
+</div>
 
 <script>
-    var inputBox = document.getElementById('Count');
+    $("#Count").on("keyup change", function () {
+        $('#TicketPrice').val($('#Count').val() * @this.Model.Concert.TicketPrice);
+    })
+</script>
+<script>
+    $('#Content').summernote({
+        placeholder: 'Hello bootstrap 4',
+        tabsize: 2,
+        height: 100,
+        tooltip: false,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
+        disableResizeEditor: true,
+        placeholder: 'Enter comment...'
+    });
+    $('.note-statusbar').hide();
 
-    inputBox.onkeyup = function() {
-        document.getElementById('TicketPrice').value = inputBox.value * @this.Model.Concert.TicketPrice;
-    }
 </script>

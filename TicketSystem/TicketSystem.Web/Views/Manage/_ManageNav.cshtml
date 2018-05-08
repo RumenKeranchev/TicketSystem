@@ -1,25 +1,22 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using TicketSystem.Common.Contstants
-@using TicketSystem.Data.Models
-@inject SignInManager< User > SignInManager
+﻿@inject SignInManager< User > SignInManager
 @{
-    var hasExternalLogins = ( await SignInManager.GetExternalAuthenticationSchemesAsync() ).Any();
+    var hasExternalLogins = ( await this.SignInManager.GetExternalAuthenticationSchemesAsync() ).Any();
 }
 
-<ul class="nav nav-pills nav-stacked">
-    <li class="@ManageNavPages.IndexNavClass( ViewContext )">
+<ul class="profile-nav">
+    <li class="@ManageNavPages.IndexNavClass( this.ViewContext )" id="prof">
         <a asp-action="Index">Profile</a>
     </li>
-    <li class="@ManageNavPages.ChangePasswordNavClass( ViewContext )">
+    <li class="@ManageNavPages.ChangePasswordNavClass( this.ViewContext )" id="pass">
         <a asp-action="ChangePassword">Password</a>
     </li>
     @if ( hasExternalLogins )
     {
-        <li class="@ManageNavPages.ExternalLoginsNavClass( ViewContext )">
+        <li class="@ManageNavPages.ExternalLoginsNavClass( this.ViewContext )" id="ext-logins">
             <a asp-action="ExternalLogins">External logins</a>
         </li>
     }
-    <li class="@ManageNavPages.TwoFactorAuthenticationNavClass( ViewContext )">
+    <li class="@ManageNavPages.TwoFactorAuthenticationNavClass( this.ViewContext )" id="tf-auth">
         <a asp-action="TwoFactorAuthentication">Two-factor authentication</a>
     </li>
    

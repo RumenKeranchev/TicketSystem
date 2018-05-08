@@ -1,18 +1,18 @@
 ﻿@model  EditConcertServiceModel 
 
 @{
-    ViewBag.Title = $"Edit Concert - {this.Model.Name}";
+    ViewBag.Title = $"Edit Concert - \"{this.Model.Name}\" ";
     Layout = "_Layout";
 }
-
-<h2 class="text-center">@(this.ViewData["Title"])</h2>
+<script>
+    $("body").addClass("OrganizerCreateConcert adm");
+</script>
+<h2 class="text-center pt-5 mb-5">@(this.ViewData["Title"])</h2>
 
 
 <div class="row ">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-
-        <form method="post">
+    <div class="col-4 offset-4">
+        <form method="post" class="py-2">
             <div class="form-group">
                 <label asp-for="StartDate"></label>
                 <input asp-for="StartDate" class="form-control Sharp" placeholder="Enter Song Name..."/>
@@ -28,8 +28,7 @@
                 <input asp-for="MaxNumberOfTickets" class="form-control Sharp" placeholder="Enter the YouTube Id..."/>
                 <span asp-validation-for="MaxNumberOfTickets" class="text-danger"></span>
             </div>
-            <input type="submit" class="btn  btn-custom" value="Edit Concert"/>
+            <input type="submit" class="btn  btn-custom" value="Save Changes"/>
         </form>
     </div>
-    <div class="col-md-4"></div>
 </div>

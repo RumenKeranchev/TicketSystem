@@ -4,14 +4,14 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:53563/",
-      "sslPort": 44396
+      "sslPort": 0
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:44396/",
+      "launchUrl": "http://localhost:53563/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +24,6 @@
       },
       "applicationUrl": "http://localhost:53564/"
     },
-
     "SignalR": {
       "commandName": "Project",
       "launchBrowser": true,

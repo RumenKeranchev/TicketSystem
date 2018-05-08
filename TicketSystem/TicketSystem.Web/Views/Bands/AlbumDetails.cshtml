@@ -1,62 +1,44 @@
-﻿@model DetailedAlbumListingServiceModel 
+﻿@model DetailedAlbumListingServiceModel
 
 @{
     ViewBag.Title = this.Model.BandName + ": " + this.Model.Name;
     Layout = "_Layout";
-    var style = "";
     var count = 1;
 }
+<h1 class="text-center font-weight-bold mb-5 pt-5">@this.ViewData[ "Title" ]</h1>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-
-<div class="row" id="detailBody">
-    <h1 class="text-center" style="margin-bottom: 40px">@this.ViewData[ "Title" ]</h1>
-    <div class="col-md-4">
-        <p class="text-center" style="font-size: 20px">Track Listing:</p>
-        @foreach ( var song in this.Model.Songs )
-        {
-            <div class="row toggler" id="@song.Id" style="background: rgba(52,65,87,0.8)">
-                <h5 style="margin-left: 90px; color: cyan" id="@song.Id">@count . @song.Name</h5>
-                <div class="col-md-3" style="display: none" id="song-@song.Id">
-                    <iframe width="360" height="205" src="https://www.youtube.com/embed/@song.UrlId" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+<div class="row justify-content-around mb-5">
+    <div class="col-lg-3 text-center">
+        <img src="@this.Model.ImageUrl" style="width: 250px; height: 250px" />
+    </div>
+    <div class="col-lg-8">
+        <h4  id="track-listing">Track Listing:</h4>
+        <div id="accordion" class="track-list">
+            @foreach ( var song in this.Model.Songs )
+            {
+                <h5 id="@song.Id" class="row m-0">
+                    <span class="col-2 text-center">@count</span>
+                    <span class="col-10">@song.Name</span>
+                </h5>
+                <div id="@song.Id" class="youtube-song">
+                    <iframe src="https://www.youtube.com/embed/@song.UrlId"
+                            gesture="media"
+                            allow="encrypted-media"
+                            frameborder="0"
+                            allowfullscreen></iframe>
                 </div>
-            </div>
-            count++;
-        }
+                count++;
+            }
+        </div>
     </div>
-    <div class="col-md-4">
-        <center>
-            <img src="@this.Model.ImageUrl" style="width: 250px; height: 250px"/>
-        </center>
-    </div>
-    <div class="col-md-4">
-        <span style="font-size: 20px">Note:</span>
-        <p style="margin-left: 20px; font-size: 20px; color: crimson">
-            This isn't the full album.<br/> This is just a sample.
-        </p>
-    </div>
-
 </div>
 
-@{
-    if ( this.Model.Genre == Genre.Rock || this.Model.Genre == Genre.GlamRock || this.Model.Genre == Genre.PopRock )
-    {
-        style = "nu-Rock";
-    }
-    else if ( this.Model.Genre == Genre.HeavyMetal || this.Model.Genre == Genre.TrashMetal )
-    {
-        style = "nu-Metal";
-    }
-    else
-    {
-        style = "nu-House";
-    }
-}
 <script>
-    document.getElementById("body").className += " @style";
-    $(document).ready(function() {
-        $(".toggler").click(function(event) {
-            $("#song-" + event.target.id).toggle(200);
+    $("body").addClass(" album-details");
+    $(function () {
+        $("#accordion").accordion({
+            collapsible: true,
+            active: false
         });
     });
 </script>
